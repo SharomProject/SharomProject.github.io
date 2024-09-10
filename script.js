@@ -19,7 +19,7 @@ const recuperarDatos = () => {
     distrito: distrito
   }
 
-  fetch('URL_DEL_GOOGLE_APPS_SCRIPT', {
+  fetch('https://script.google.com/macros/s/AKfycbxbgpXRNLE91xr41E2pPrhEV9I_HjpDQ4AjMqfHW_eQVv3kPB4hejRSwmetf9sJj9EP/exec', {
     method: 'POST',
     body: JSON.stringify(formData)
   })
