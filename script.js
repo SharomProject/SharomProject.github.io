@@ -1,1 +1,142 @@
+const recuperarDatos = () => {
+  event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+  //validarCampo(expresiones.dni, e.target, 'dni');
+	//validarCampo(expresiones.dni, e.target, 'dni');
+	
+  // Capturar los valores del formulario
+  const dni = document.getElementById('dni').value;
+  const nombres = document.getElementById('nombres').value;
+  const apellidos = document.getElementById('apellidos').value;
+  const edad = document.getElementById('edad').value;
+  const distrito = document.querySelector('input[name="distrito"]:checked').value;
+            // Crear un objeto con los datos
+  const formData = {
+    dni: dni,
+    nombres: nombres,
+    apellidos: apellidos,
+    edad: edad,
+    correo: correo,
+    distrito: distrito
+  }
 
+  fetch('URL_DEL_GOOGLE_APPS_SCRIPT', {
+    method: 'POST',
+    body: JSON.stringify(formData)
+  })
+  .then(response => response.text())
+  .then(data => {
+    alert('Datos enviados correctamente');
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+}
+
+const formulario = document.getElementById('participantForm');
+const inputs = document.querySelectorAll('#participantForm input');
+
+const expresiones = {
+	nomapellido: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
+	dni: /^\d{8}$/ // 8 numeros.
+	correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+}
+
+const campos = {
+	dni: false,
+  nombres: false,
+  apellidos: false,
+  edad: false,
+  distrito: false
+}
+
+const validarFormulario = (e) => {
+	switch (e.target.name) {
+		case "nombres":
+			validarCampo(expresiones.nombres, e.target, 'nombres');
+		break;
+    case "apellidos":
+			validarCampo(expresiones.apellidos, e.target, 'apellidos');
+		break;
+		case "correo":
+			validarCampo(expresiones.correo, e.target, 'correo');
+		break;
+		case "dni":
+			validarCampo(expresiones.dni, e.target, 'dni');
+		break;
+    case "edad":
+      const edad = e.target.value;
+      if(Number.isInteger(edad) && edad>=20){
+		    document.getElementById(`grupo__edad`).classList.remove('formulario__grupo-incorrecto');
+		    document.getElementById(`grupo__edad`).classList.add('formulario__grupo-correcto');
+		    document.querySelector(`#grupo__edad i`).classList.add('fa-check-circle');
+		    document.querySelector(`#grupo__edad i`).classList.remove('fa-times-circle');
+		    document.querySelector(`#grupo__edad .formulario__input-error`).classList.remove('formulario__input-error-activo');
+		    campos[edad] = true;
+	    } else {
+		    document.getElementById(`grupo__edad`).classList.add('formulario__grupo-incorrecto');
+		    document.getElementById(`grupo__edad`).classList.remove('formulario__grupo-correcto');
+		    document.querySelector(`#grupo__edad i`).classList.add('fa-times-circle');
+		    document.querySelector(`#grupo__edad i`).classList.remove('fa-check-circle');
+		    document.querySelector(`#grupo__edad .formulario__input-error`).classList.add('formulario__input-error-activo');
+		    campos[edad] = false;
+	    }
+    break;
+	}
+}
+
+const validarCampo = (expresion, input, campo) => {
+	if(expresion.test(input.value)){
+		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
+		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
+		document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
+		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
+		document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
+		campos[campo] = true;
+	} else {
+		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
+		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
+		document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
+		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
+		document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
+		campos[campo] = false;
+	}
+}
+
+
+inputs.forEach((input) => {
+	input.addEventListener('keyup', validarFormulario);
+	input.addEventListener('blur', validarFormulario);
+});
+
+formulario.addEventListener('submit', (e) => {
+	e.preventDefault();
+  const distrito = document.querySelector('input[name="distrito"]:checked').value;
+	if(campos.nombres && campos.apellidos && campos.dni && campos.correo && campos.edad && distrito != null){
+    recuperarDatos();
+		formulario.reset();
+
+		document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
+		setTimeout(() => {
+			document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');
+		}, 5000);
+
+		document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
+			icono.classList.remove('formulario__grupo-correcto');
+		});
+	} else {
+    if(distrito == null){
+      if(Number.isInteger(edad) && edad>=20){
+		    document.getElementById(`grupo__distrito`).classList.remove('formulario__grupo-incorrecto');
+		    document.getElementById(`grupo__distrito`).classList.add('formulario__grupo-correcto');
+		    document.querySelector(`#grupo__distrito .formulario__input-error`).classList.remove('formulario__input-error-activo');
+		    campos[edad] = true;
+	    } else {
+		    document.getElementById(`grupo__distrito`).classList.add('formulario__grupo-incorrecto');
+		    document.getElementById(`grupo__distrito`).classList.remove('formulario__grupo-correcto');
+		    document.querySelector(`#grupo__distrito .formulario__input-error`).classList.add('formulario__input-error-activo');
+		    campos[edad] = false;
+	    }
+    }
+		document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
+	}
+});
