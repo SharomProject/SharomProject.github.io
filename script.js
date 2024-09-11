@@ -126,6 +126,34 @@ inputs.forEach((input) => {
 
 formulario.addEventListener('submit', (e) => {
 	e.preventDefault();
-	recuperarDatos();
+	const distrito = document.querySelector('input[name="distrito"]:checked').value;
+	if(campos.nombres && campos.apellidos && campos.dni && campos.correo && campos.edad && !(distrito === null) && !(distrito.length === 0)){
+    		recuperarDatos();
+		formulario.reset();
+
+		document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
+		setTimeout(() => {
+			document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');
+		}, 5000);
+
+		document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
+			icono.classList.remove('formulario__grupo-correcto');
+		});
+	} else {
+    		if(distrito == null){
+      			if(Number.isInteger(edad) && edad>=20){
+			    document.getElementById(`grupo__distrito`).classList.remove('formulario__grupo-incorrecto');
+			    document.getElementById(`grupo__distrito`).classList.add('formulario__grupo-correcto');
+			    document.querySelector(`#grupo__distrito .formulario__input-error`).classList.remove('formulario__input-error-activo');
+			    campos[edad] = true;
+	    		} else {
+			    document.getElementById(`grupo__distrito`).classList.add('formulario__grupo-incorrecto');
+			    document.getElementById(`grupo__distrito`).classList.remove('formulario__grupo-correcto');
+			    document.querySelector(`#grupo__distrito .formulario__input-error`).classList.add('formulario__input-error-activo');
+			    campos[edad] = false;
+	    		}
+    		}
+		document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
+	}
  	
 });
