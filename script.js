@@ -1,5 +1,5 @@
 const recuperarDatos = () => {
-  event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+ // event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
   //validarCampo(expresiones.dni, e.target, 'dni');
 	//validarCampo(expresiones.dni, e.target, 'dni');
 	
