@@ -22,6 +22,9 @@ const recuperarDatos = () => {
 
   fetch('https://script.google.com/macros/s/AKfycbxbgpXRNLE91xr41E2pPrhEV9I_HjpDQ4AjMqfHW_eQVv3kPB4hejRSwmetf9sJj9EP/exec', {
     method: 'POST',
+	headers: {
+		'Content-Type':'application/json'
+	}
     body: JSON.stringify(formData)
   })
   .then(response => response.text())
@@ -70,7 +73,7 @@ const validarFormulario = (e) => {
 			console.log('zi4', e.target.value);
 		break;
 		case "edad":
-			const edad = e.target.edad.value;
+			const edad = e.target.value;
 			if(Number.isInteger(edad) && edad>=20){
 				document.getElementById(`grupo__edad`).classList.remove('formulario__grupo-incorrecto');
 				document.getElementById(`grupo__edad`).classList.add('formulario__grupo-correcto');
@@ -92,7 +95,7 @@ const validarFormulario = (e) => {
 }
 
 const validarCampo = (expresion, input, campo) => {
-	if(expresion.test(value)){
+	if(expresion.test(input.value)){
 		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
 		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
 		document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
@@ -112,15 +115,15 @@ const validarCampo = (expresion, input, campo) => {
 }
 
 inputs.forEach((input) => {
-	input.addEventListener('keyup', validarFormulario());
-	input.addEventListener('blur', validarFormulario());
+	input.addEventListener('keyup', validarFormulario);
+	input.addEventListener('blur', validarFormulario);
 });
 
 formulario.addEventListener('submit', (e) => {
 	e.preventDefault();
 
  	const distrito = document.querySelector('input[name="distrito"]:checked').value;
-	if(campos.nombres && campos.apellidos && campos.dni && campos.correo && campos.edad && distrito != null){
+	if(campos.nombres && campos.apellidos && campos.dni && campos.correo && campos.edad && !(distrito === null) && !(distrito.length === 0)){
     		recuperarDatos();
 		formulario.reset();
 
