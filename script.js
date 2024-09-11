@@ -1,3 +1,6 @@
+const formulario = document.getElementById('participantForm');
+const inputs = document.querySelectorAll('participantForm');
+
 const recuperarDatos = () => {
  // event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
   //validarCampo(expresiones.dni, e.target, 'dni');
@@ -36,8 +39,6 @@ const recuperarDatos = () => {
   });
 }
 
-const formulario = document.getElementById('participantForm');
-const inputs = document.querySelectorAll('#participantForm input');
 
 const expresiones = {
 	nomapellido: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
@@ -78,18 +79,18 @@ const validarFormulario = (e) => {
 		case "edad":
 			const edad = e.target.value;
 			if(Number.isInteger(edad) && edad>=20){
-				document.getElementById(`grupo__edad`).classList.remove('formulario__grupo-incorrecto');
-				document.getElementById(`grupo__edad`).classList.add('formulario__grupo-correcto');
-			    	document.querySelector(`#grupo__edad i`).classList.add('fa-check-circle');
-			   	document.querySelector(`#grupo__edad i`).classList.remove('fa-times-circle');
-			    	document.querySelector(`#grupo__edad .formulario__input-error`).classList.remove('formulario__input-error-activo');
+				document.getElementById('grupo__edad').classList.remove('formulario__grupo-incorrecto');
+				document.getElementById('grupo__edad').classList.add('formulario__grupo-correcto');
+			    	document.querySelector('#grupo__edad i').classList.add('fa-check-circle');
+			   	document.querySelector('#grupo__edad i').classList.remove('fa-times-circle');
+			    	document.querySelector('#grupo__edad .formulario__input-error').classList.remove('formulario__input-error-activo');
 			    	campos[edad] = true;
 	    		} else {
-		    		document.getElementById(`grupo__edad`).classList.add('formulario__grupo-incorrecto');
-		    		document.getElementById(`grupo__edad`).classList.remove('formulario__grupo-correcto');
-		    		document.querySelector(`#grupo__edad i`).classList.add('fa-times-circle');
-		    		document.querySelector(`#grupo__edad i`).classList.remove('fa-check-circle');
-		    		document.querySelector(`#grupo__edad .formulario__input-error`).classList.add('formulario__input-error-activo');
+		    		document.getElementById('grupo__edad').classList.add('formulario__grupo-incorrecto');
+		    		document.getElementById('grupo__edad').classList.remove('formulario__grupo-correcto');
+		    		document.querySelector('#grupo__edad i').classList.add('fa-times-circle');
+		    		document.querySelector('#grupo__edad i').classList.remove('fa-check-circle');
+		    		document.querySelector('#grupo__edad .formulario__input-error').classList.add('formulario__input-error-activo');
 		   		campos[edad] = false;
 	    		}
 			console.log('zi3', e.target.value);
