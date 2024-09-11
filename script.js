@@ -55,6 +55,9 @@ const campos = {
 }
 
 const validarFormulario = (e) => {
+	e.preventDefault();  // Asegúrate de que estás recibiendo el evento
+	let event = e.target;  // Verifica que estás accediendo al elemento correcto
+	console.log(event);
 	switch (e.target.name) {
 		case "nombres":
 			validarCampo(expresiones.nombres, e.target, 'nombres');
