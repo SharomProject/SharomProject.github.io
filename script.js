@@ -25,6 +25,7 @@ const recuperarDatos = () => {
 
   fetch('https://script.google.com/macros/s/AKfycbxbgpXRNLE91xr41E2pPrhEV9I_HjpDQ4AjMqfHW_eQVv3kPB4hejRSwmetf9sJj9EP/exec', {
     method: 'POST',
+	  mode: 'no-cors',
 	headers: {
 		'Content-Type':'application/json'
 	},
