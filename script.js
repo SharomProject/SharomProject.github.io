@@ -55,18 +55,22 @@ const validarFormulario = (e) => {
 	switch (e.target.name) {
 		case "nombres":
 			validarCampo(expresiones.nombres, e.target, 'nombres');
+			console.log('zi', e.target.value);
 		break;
 		case "apellidos":
 			validarCampo(expresiones.apellidos, e.target, 'apellidos');
+			console.log('zi', e.target.value);
 		break;
 		case "correo":
 			validarCampo(expresiones.correo, e.target, 'correo');
+			console.log('zi', e.target.value);
 		break;
 		case "dni":
 			validarCampo(expresiones.dni, e.target, 'dni');
+			console.log('zi4', e.target.value);
 		break;
 		case "edad":
-			const edad = e.target.value;
+			const edad = e.target.edad.value;
 			if(Number.isInteger(edad) && edad>=20){
 				document.getElementById(`grupo__edad`).classList.remove('formulario__grupo-incorrecto');
 				document.getElementById(`grupo__edad`).classList.add('formulario__grupo-correcto');
@@ -82,6 +86,7 @@ const validarFormulario = (e) => {
 		    		document.querySelector(`#grupo__edad .formulario__input-error`).classList.add('formulario__input-error-activo');
 		   		campos[edad] = false;
 	    		}
+			console.log('zi3', e.target.value);
     		break;
 	}
 }
@@ -94,6 +99,7 @@ const validarCampo = (expresion, input, campo) => {
 		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
 		document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
 		campos[campo] = true;
+		console.log('zi2', input.value);
 	} else {
 		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
 		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
@@ -101,6 +107,7 @@ const validarCampo = (expresion, input, campo) => {
 		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
 		document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
 		campos[campo] = false;
+		console.log('zi1', input.value);
 	}
 }
 
