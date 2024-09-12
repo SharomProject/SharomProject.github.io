@@ -146,6 +146,37 @@ main {
 	border: 3px solid #bb2929;
 }
 
+/* a partir de aquí */
+/* Input con validación correcta -----------------------------------------------------------------------*/
+.formulario__input-correcto {
+	border: 3px solid #1ed12d;
+}
+
+/* Input con validación incorrecta */
+.formulario__input-incorrecto {
+	border: 3px solid #bb2929;
+}
+
+/* Icono de validación (estado correcto o incorrecto) */
+.formulario__validacion-estado {
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	opacity: 0;
+}
+
+.formulario__grupo-correcto .formulario__validacion-estado {
+	color: #1ed12d;
+	opacity: 1;
+}
+
+.formulario__grupo-incorrecto .formulario__validacion-estado {
+	color: #bb2929;
+	opacity: 1;
+}
+
+
 
 /* ----- -----  Mediaqueries ----- ----- */
 @media screen and (max-width: 800px) {
