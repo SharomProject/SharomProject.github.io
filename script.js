@@ -119,8 +119,8 @@ const validarCampo = (expresion, input, campo) => {
 	}
 }
 
-const validarCampoS = (input, campo) => {
-	if(expresion.test(input)){
+const validarCampoS = (valor, campo) => {
+	if(expresion.test(valor)){
 		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
 		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
 		document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
