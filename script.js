@@ -60,23 +60,23 @@ const campos = {
 const validarFormulario = (e) => {
 	e.preventDefault();  // Asegúrate de que estás recibiendo el evento
 	let event = e.target;  // Verifica que estás accediendo al elemento correcto
-	console.log(event);
-	switch (e.target.name) {
+	console.log(event.id);
+	switch (e.target.id) {
 		case "nombres":
 			validarCampo(expresiones.nombres, e.target, 'nombres');
-			console.log('zi', e.target.value);
+			//console.log(e.target.value);
 		break;
 		case "apellidos":
 			validarCampo(expresiones.apellidos, e.target, 'apellidos');
-			console.log('zi', e.target.value);
+			//console.log(e.target.value);
 		break;
 		case "correo":
 			validarCampo(expresiones.correo, e.target, 'correo');
-			console.log('zi', e.target.value);
+			//console.log(e.target.value);
 		break;
 		case "dni":
 			validarCampo(expresiones.dni, e.target, 'dni');
-			console.log('zi4', e.target.value);
+			//console.log(e.target.value);
 		break;
 		case "edad":
 			const edad = parseInt(e.target.value);
@@ -101,23 +101,38 @@ const validarFormulario = (e) => {
 
 const validarCampo = (expresion, input, campo) => {
 	if(expresion.test(input.value)){
+		// Aplicar clases al contenedor y al input directamente
 		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
 		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
-		document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
-		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
+		
+		input.classList.remove('formulario__input-incorrecto'); // Añadir clases al input mismo
+		input.classList.add('formulario__input-correcto');
+		
+		// Cambiar el icono de validación
+		document.querySelector(`#grupo__${campo} .formulario__validacion-estado`).classList.add('fa-check-circle');
+		document.querySelector(`#grupo__${campo} .formulario__validacion-estado`).classList.remove('fa-times-circle');
+		
+		// Ocultar el mensaje de error
 		document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
 		campos[campo] = true;
-		console.log('zi2', input.value);
 	} else {
+		// Aplicar clases al contenedor y al input directamente
 		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
 		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
-		document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
-		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
+		
+		input.classList.remove('formulario__input-correcto');
+		input.classList.add('formulario__input-incorrecto');
+		
+		// Cambiar el icono de validación
+		document.querySelector(`#grupo__${campo} .formulario__validacion-estado`).classList.add('fa-times-circle');
+		document.querySelector(`#grupo__${campo} .formulario__validacion-estado`).classList.remove('fa-check-circle');
+		
+		// Mostrar el mensaje de error
 		document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
 		campos[campo] = false;
-		console.log('zi1', input.value);
 	}
 }
+
 
 // const validarCampoS = (valor, campo) => {
 // 	if(expresion.test(valor)){
@@ -139,9 +154,12 @@ const validarCampo = (expresion, input, campo) => {
 // 	}
 // }
 
-inputs.forEach((input) => {
+document.addEventListener('DOMContentLoaded', () => {
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach((input) => {
 	input.addEventListener('keyup', validarFormulario);
 	input.addEventListener('blur', validarFormulario);
+    });
 });
 
 formulario.addEventListener('submit', (e) => {
@@ -158,8 +176,8 @@ formulario.addEventListener('submit', (e) => {
 	// validarCampoS(edad, 'edad');
 	// validarCampoS(correo, 'correo');
 	// validarCampoS(distrito, 'distrito');
-
-	recuperarDatos();
+	console.log('xd');
+	// recuperarDatos();
 	
 	// if(campos.nombres && campos.apellidos && campos.dni && campos.correo && campos.edad && !(distrito === null) && !(distrito.length === 0)){
  //    		recuperarDatos();
@@ -190,4 +208,4 @@ formulario.addEventListener('submit', (e) => {
 	// 	document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
 	// }
  	
-});
+});	
