@@ -119,6 +119,26 @@ const validarCampo = (expresion, input, campo) => {
 	}
 }
 
+const validarCampoS = (input, campo) => {
+	if(expresion.test(input)){
+		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
+		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
+		document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
+		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
+		document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
+		campos[campo] = true;
+		console.log('zi2', input.value);
+	} else {
+		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
+		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
+		document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
+		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
+		document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
+		campos[campo] = false;
+		console.log('zi1', input.value);
+	}
+}
+
 inputs.forEach((input) => {
 	input.addEventListener('keyup', validarFormulario);
 	input.addEventListener('blur', validarFormulario);
@@ -126,7 +146,19 @@ inputs.forEach((input) => {
 
 formulario.addEventListener('submit', (e) => {
 	e.preventDefault();
+	const dni = document.getElementById('dni').value;
+  	const nombres = document.getElementById('nombres').value;
+  	const apellidos = document.getElementById('apellidos').value;
+  	const edad = document.getElementById('edad').value;
+  	const correo = document.getElementById('correo').value;
 	const distrito = document.querySelector('input[name="distrito"]:checked').value;
+	validarCampoS(dni, 'dni');
+	validarCampoS(nombres, 'nombres');
+	validarCampoS(apellidos, 'apellidos');
+	validarCampoS(edad, 'edad');
+	validarCampoS(correo, 'correo');
+	validarCampoS(distrito, 'distrito');
+	
 	if(campos.nombres && campos.apellidos && campos.dni && campos.correo && campos.edad && !(distrito === null) && !(distrito.length === 0)){
     		recuperarDatos();
 		formulario.reset();
