@@ -2,38 +2,50 @@ const formulario = document.getElementById('participantForm');
 const inputs = document.querySelectorAll('participantForm');
 
 const recuperarDatos = () => {
-	 // Capturar los valores del formulario
-	  const dni = document.getElementById('dni').value;
-	  const nombres = document.getElementById('nombres').value;
-	  const apellidos = document.getElementById('apellidos').value;
-	  const edad = document.getElementById('edad').value;
-	  const correo = document.getElementById('correo').value;
-	  const distrito = document.querySelector('input[name="distrito"]:checked').value;
-            // Crear un objeto con los datos
-	  const formData = {
-	    dni: dni,
-	    nombres: nombres,
-	    apellidos: apellidos,
-	    edad: edad,
-	    correo: correo,
-	    distrito: distrito
-	  }
+  const dni = document.getElementById('dni').value;
+  const nombres = document.getElementById('nombres').value;
+  const apellidos = document.getElementById('apellidos').value;
+  const edad = document.getElementById('edad').value;
+  const correo = document.getElementById('correo').value;
+  const distrito = document.querySelector('input[name="distrito"]:checked').value;
+  const sexo = document.querySelector('input[name="sexo"]:checked').value;
 
-	  fetch('https://script.google.com/macros/s/AKfycbxbgpXRNLE91xr41E2pPrhEV9I_HjpDQ4AjMqfHW_eQVv3kPB4hejRSwmetf9sJj9EP/exec', {
-	    method: 'POST',
-		headers: {
-			'Content-Type':'application/json'
-		},
-	    body: JSON.stringify(formData)
-	  })
-	  .then(response => response.text())
-	  .then(data => {
-	    alert('Datos enviados correctamente');
-	  })
-	  .catch(error => {
-	    console.error('Error:', error);
-	  });
-}
+  const formData = {
+    dni: dni,
+    nombres: nombres,
+    apellidos: apellidos,
+    edad: edad,
+    correo: correo,
+    sexo: sexo,
+    distrito: distrito
+  };
+
+  fetch('URL_DEL_SCRIPT_GOOGLE_APPS', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.result === 'success') {
+      alert('Datos enviados correctamente');
+      return true;
+    } else if (data.result === 'dni_exists') {
+      alert('El DNI ya está registrado');
+    } else if (data.result === 'masc_quota_full' || data.result === 'fem_quota_full') {
+      alert('Ya se ha completado el cupo para este rango de edad y sexo');
+    } else if (data.result === 'no_experiments_available') {
+      alert('No hay experimentos disponibles');
+    }
+    return false;
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    return false;
+  });
+};
 
 
 const expresiones = {
@@ -134,19 +146,20 @@ document.addEventListener('DOMContentLoaded', () => {
 formulario.addEventListener('submit', (e) => {
 	e.preventDefault();
 	console.log('xd');
-	if(campos.nombres && campos.apellidos && campos.dni && campos.correo && campos.edad && !(distrito === null) && !(distrito.length === 0)){
-		if(recuperarDatos()){
-			formulario.reset();
-			document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
-			setTimeout(() => {
-				document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');
-			}, 5000);
-			document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
-				icono.classList.remove('formulario__grupo-correcto');
-			});
-		} else {
-			
-		}
+	if(campos.nombres && campos.apellidos && campos.dni && campos.correo && campos.edad){
+		recuperarDatos();
+		//if(recuperarDatos()){
+		//	formulario.reset();
+		//	document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
+		//	setTimeout(() => {
+		//		document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');
+		//	}, 5000);
+		//	document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
+		//		icono.classList.remove('formulario__grupo-correcto');
+		//	});
+		//} else {
+		//	
+		//}
 	} else {
      		if(distrito == null){
        			if(Number.isInteger(edad) && edad>=20){
