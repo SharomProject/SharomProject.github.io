@@ -2,11 +2,7 @@ const formulario = document.getElementById('participantForm');
 const inputs = document.querySelectorAll('participantForm');
 
 const recuperarDatos = () => {
-	 // event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
-	  //validarCampo(expresiones.dni, e.target, 'dni');
-		//validarCampo(expresiones.dni, e.target, 'dni');
-		
-	  // Capturar los valores del formulario
+	 // Capturar los valores del formulario
 	  const dni = document.getElementById('dni').value;
 	  const nombres = document.getElementById('nombres').value;
 	  const apellidos = document.getElementById('apellidos').value;
@@ -25,7 +21,6 @@ const recuperarDatos = () => {
 
 	  fetch('https://script.google.com/macros/s/AKfycbxbgpXRNLE91xr41E2pPrhEV9I_HjpDQ4AjMqfHW_eQVv3kPB4hejRSwmetf9sJj9EP/exec', {
 	    method: 'POST',
-		  mode: 'no-cors',
 		headers: {
 			'Content-Type':'application/json'
 		},
@@ -60,23 +55,18 @@ const campos = {
 const validarFormulario = (e) => {
 	e.preventDefault();  // Asegúrate de que estás recibiendo el evento
 	let event = e.target;  // Verifica que estás accediendo al elemento correcto
-	console.log(event.id);
 	switch (e.target.id) {
 		case "nombres":
 			validarCampo(expresiones.nombres, e.target, 'nombres');
-			//console.log(e.target.value);
 		break;
 		case "apellidos":
 			validarCampo(expresiones.apellidos, e.target, 'apellidos');
-			//console.log(e.target.value);
 		break;
 		case "correo":
 			validarCampo(expresiones.correo, e.target, 'correo');
-			//console.log(e.target.value);
 		break;
 		case "dni":
 			validarCampo(expresiones.dni, e.target, 'dni');
-			//console.log(e.target.value);
 		break;
 		case "edad":
 			const edad = parseInt(e.target.value);
@@ -133,27 +123,6 @@ const validarCampo = (expresion, input, campo) => {
 	}
 }
 
-
-// const validarCampoS = (valor, campo) => {
-// 	if(expresion.test(valor)){
-// 		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
-// 		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
-// 		document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
-// 		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
-// 		document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
-// 		campos[campo] = true;
-// 		console.log('zi2', input.value);
-// 	} else {
-// 		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
-// 		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
-// 		document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
-// 		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
-// 		document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
-// 		campos[campo] = false;
-// 		console.log('zi1', input.value);
-// 	}
-// }
-
 document.addEventListener('DOMContentLoaded', () => {
     const inputs = document.querySelectorAll('input');
     inputs.forEach((input) => {
@@ -164,48 +133,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
 formulario.addEventListener('submit', (e) => {
 	e.preventDefault();
-	// const dni = document.getElementById('dni').value;
- //  	const nombres = document.getElementById('nombres').value;
- //  	const apellidos = document.getElementById('apellidos').value;
- //  	const edad = document.getElementById('edad').value;
- //  	const correo = document.getElementById('correo').value;
-	// const distrito = document.querySelector('input[name="distrito"]:checked').value;
-	// validarCampoS(dni, 'dni');
-	// validarCampoS(nombres, 'nombres');
-	// validarCampoS(apellidos, 'apellidos');
-	// validarCampoS(edad, 'edad');
-	// validarCampoS(correo, 'correo');
-	// validarCampoS(distrito, 'distrito');
 	console.log('xd');
-	// recuperarDatos();
-	
-	// if(campos.nombres && campos.apellidos && campos.dni && campos.correo && campos.edad && !(distrito === null) && !(distrito.length === 0)){
- //    		recuperarDatos();
-	// 	formulario.reset();
-
-	// 	document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
-	// 	setTimeout(() => {
-	// 		document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');
-	// 	}, 5000);
-
-	// 	document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
-	// 		icono.classList.remove('formulario__grupo-correcto');
-	// 	});
-	// } else {
- //    		if(distrito == null){
- //      			if(Number.isInteger(edad) && edad>=20){
-	// 		    document.getElementById(`grupo__distrito`).classList.remove('formulario__grupo-incorrecto');
-	// 		    document.getElementById(`grupo__distrito`).classList.add('formulario__grupo-correcto');
-	// 		    document.querySelector(`#grupo__distrito .formulario__input-error`).classList.remove('formulario__input-error-activo');
-	// 		    campos[edad] = true;
-	//     		} else {
-	// 		    document.getElementById(`grupo__distrito`).classList.add('formulario__grupo-incorrecto');
-	// 		    document.getElementById(`grupo__distrito`).classList.remove('formulario__grupo-correcto');
-	// 		    document.querySelector(`#grupo__distrito .formulario__input-error`).classList.add('formulario__input-error-activo');
-	// 		    campos[edad] = false;
-	//     		}
- //    		}
-	// 	document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
-	// }
+	if(campos.nombres && campos.apellidos && campos.dni && campos.correo && campos.edad && !(distrito === null) && !(distrito.length === 0)){
+		if(recuperarDatos()){
+			formulario.reset();
+			document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
+			setTimeout(() => {
+				document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');
+			}, 5000);
+			document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
+				icono.classList.remove('formulario__grupo-correcto');
+			});
+		} else {
+			
+		}
+	} else {
+     		if(distrito == null){
+       			if(Number.isInteger(edad) && edad>=20){
+	 		    document.getElementById(`grupo__distrito`).classList.remove('formulario__grupo-incorrecto');
+	 		    document.getElementById(`grupo__distrito`).classList.add('formulario__grupo-correcto');
+			    document.querySelector(`#grupo__distrito .formulario__input-error`).classList.remove('formulario__input-error-activo');
+	 		    campos[edad] = true;
+	     		} else {
+	 		    document.getElementById(`grupo__distrito`).classList.add('formulario__grupo-incorrecto');
+	 		    document.getElementById(`grupo__distrito`).classList.remove('formulario__grupo-correcto');
+			    document.querySelector(`#grupo__distrito .formulario__input-error`).classList.add('formulario__input-error-activo');
+	 		    campos[edad] = false;
+	    		}
+    		}
+		document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
+	}
  	
-});	
+});
+
+
