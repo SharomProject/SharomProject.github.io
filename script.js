@@ -26,7 +26,7 @@ const recuperarDatos = () => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(formData),
-	  //cors: 
+	mode: 'no-cors'	  
   })
   .then(response => response.json())
   .then(data => {
