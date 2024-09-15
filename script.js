@@ -1,5 +1,5 @@
-const formulario = document.getElementById('participantForm');
-const inputs = document.querySelectorAll('participantForm');
+const formulario = document.getElementById('formulario');
+const inputs = document.querySelectorAll('formulario');
 
 const recuperarDatos = () => {
   const dni = document.getElementById('dni').value;
