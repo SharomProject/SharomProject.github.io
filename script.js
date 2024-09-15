@@ -45,8 +45,7 @@ const recuperarDatos = () => {
     console.error('Error:', error);
     return false;
   });
-};
-
+}
 
 const expresiones = {
 	nombres: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
