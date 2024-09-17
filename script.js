@@ -31,7 +31,7 @@ const recuperarDatos = () => {
   headers.append('GET', 'POST', 'OPTIONS');
 	
   fetch('https://script.google.com/macros/s/AKfycbxbgpXRNLE91xr41E2pPrhEV9I_HjpDQ4AjMqfHW_eQVv3kPB4hejRSwmetf9sJj9EP/exec', {
-	  mode: 'cors',    
+	  mode: 'no-cors',    
 	  method: 'POST',
 	  headers: headers,
 	  body: JSON.stringify(formData),
