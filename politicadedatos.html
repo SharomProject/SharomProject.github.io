@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Participantes -  Sharon Project</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS que encontramos por internet, parece que es bacán -->
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="CSS/estilos.css">
+    <title>Consentimiento de tratamiento de datos</title>
+</head>
+<body>
+    <h1>Formato de consentimiento</h1>
+    <h2>Consentimiento Informado para Participantes de Investigación</h2>
+    <p>El propósito de proporcionarle este consentimiento es con el fin de informar la naturaleza de la investigación y la función como participante.....</p>
+    <form>
+      <label for="checkbox-popup">Aceptar términos y condiciones</label>
+      <br><br/>
+      <button type="button" onclick="checkMainWindow()">Rechazar</button>  
+      <button type="button" onclick="checkMainWindow()">Aceptar</button>
+    </form>
+
+    <script>
+        function checkMainWindow() {
+            if (window.opener) {
+                // Verificamos si el checkbox de la ventana emergente está marcado
+                const isChecked = document.getElementById('aceptarpopup').checked;
+                // Si está marcado, también marcamos el checkbox de la ventana principal
+                window.opener.document.getElementById('aceptar').checked = isChecked;
+                // Cerrar la ventana emergente
+                window.close();
+            }
+        }
+    </script>
+</body>
+</html>
