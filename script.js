@@ -21,32 +21,25 @@ const recuperarDatos = () => {
   };
 
   let headers = new Headers();
+
   headers.append('Content-Type', 'application/json');
   headers.append('Accept', 'application/json');
 
+	
   fetch('https://script.google.com/macros/s/AKfycbxbgpXRNLE91xr41E2pPrhEV9I_HjpDQ4AjMqfHW_eQVv3kPB4hejRSwmetf9sJj9EP/exec', {
-    mode: 'cors',    
     method: 'POST',
-    headers: headers,
-    body: JSON.stringify(formData),
+	  mode: 'no-cors',
+	headers: {
+		'Content-Type':'application/json'
+	},
+    body: JSON.stringify(formData)
   })
-  .then(response => response.json())
+  .then(response => response.text())
   .then(data => {
-    if (data.result === 'success') {
-      alert('Datos enviados correctamente');
-      return true;
-    } else if (data.result === 'dni_exists') {
-      alert('El DNI ya está registrado');
-    } else if (data.result === 'masc_quota_full' || data.result === 'fem_quota_full') {
-      alert('Ya se ha completado el cupo para este rango de edad y sexo');
-    } else if (data.result === 'no_experiments_available') {
-      alert('No hay experimentos disponibles');
-    }
-    return false;
+    alert('Datos enviados correctamente');
   })
   .catch(error => {
     console.error('Error:', error);
-    return false;
   });
 }
 
@@ -190,5 +183,3 @@ formulario.addEventListener('submit', (e) => {
 	}
  	
 });
-
-
