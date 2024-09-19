@@ -19,20 +19,21 @@
     <form>
       <label for="checkbox-popup">Aceptar términos y condiciones</label>
       <br><br/>
-      <button type="button" onclick="checkMainWindow()">Rechazar</button>  
+      <button type="button" onclick="close()">Rechazar</button>  
       <button type="button" onclick="checkMainWindow()">Aceptar</button>
     </form>
 
     <script>
         function checkMainWindow() {
             if (window.opener) {
-                // Verificamos si el checkbox de la ventana emergente está marcado
-                const isChecked = document.getElementById('aceptarpopup').checked;
                 // Si está marcado, también marcamos el checkbox de la ventana principal
                 window.opener.document.getElementById('aceptar').checked = isChecked;
                 // Cerrar la ventana emergente
                 window.close();
             }
+        }
+        function close() {
+            window.close();
         }
     </script>
 </body>
