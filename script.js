@@ -28,8 +28,9 @@ const recuperarDatos = () => {
   headers.append('Accept', 'application/json');
 
 	//https://sheetdb.io/api/v1/zednnydm44168
-  fetch('https://script.google.com/macros/s/AKfycbztuA5o2hQCc_Mb-fjwpeLAke_VP1Sv9LU-8vvGiMvdJ3KeXf4hIyBQMsHYIfo3NMWI/exec', {
+  fetch('https://script.google.com/macros/s/AKfycbwy3aJwbjW7Dqwk3SEJaW_q3gzOYrjoR_WDl6tkuHCmcCmwIizeQuGlYbwsWX5sXSkh/exec', {
     method: 'POST',
+	  mode:'cors',
      headers: {
 	'Content-Type':'application/json'
      },
