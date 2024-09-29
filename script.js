@@ -7,8 +7,10 @@ const recuperarDatos = () => {
   const apellidos = document.getElementById('apellidos').value;
   const edad = document.getElementById('edad').value;
   const correo = document.getElementById('correo').value;
-  const distrito = document.querySelector('input[name="distrito"]:checked').value;
   const sexo = document.querySelector('input[name="sexo"]:checked').value;
+  const distrito = document.querySelector('input[name="distrito"]:checked').value;
+  console.log(document.querySelector('input[name="sexo"]:checked').value);
+
 
   const formData = {
     dni: dni,
@@ -25,18 +27,31 @@ const recuperarDatos = () => {
   headers.append('Content-Type', 'application/json');
   headers.append('Accept', 'application/json');
 
-	
-  fetch('https://script.google.com/macros/s/AKfycbxY3KZ-ZOm9rdRb67nsXDYZm654S5KqWGoOBN_o2Z98bASN5UsNjoByXzvlmYNl7Ww5/exec', {
+	//https://sheetdb.io/api/v1/zednnydm44168
+  fetch('https://script.google.com/macros/s/AKfycbxbgpXRNLE91xr41E2pPrhEV9I_HjpDQ4AjMqfHW_eQVv3kPB4hejRSwmetf9sJj9EP/exec', {
     method: 'POST',
-	  mode: 'no-cors',
-	headers: {
-		'Content-Type':'application/json'
-	},
+     headers: {
+	'Content-Type':'application/json'
+     },
     body: JSON.stringify(formData)
   })
-  .then(response => response.text())
+  .then(response => response.json())
   .then(data => {
-    alert('Datos enviados correctamente');
+    console.log(data.status);
+	alert(data.status);
+   /* if (data.status === 'dni_ya_existe') {
+      alert('Ya se ha registrado a este DNI, pruebe con otro'); // El mensaje "El DNI ya está registrado" aparece en pantalla
+    } else if (data.status === 'masc_quota_full') {
+      alert('ya tenemos suficientes encuestados de su edad y género, no será registrado'); // Mensaje de cuota masculina llena
+    } else if (data.status === 'fem_quota_full') {
+      alert('ya tenemos suficientes encuestados de su edad y género, no será registrado'); // Mensaje de cuota femenina llena
+    } else if (data.status === 'no_experiments_available') {
+      alert('ya hemos registrado a todos los participantes, gracias por su participación'); // Mensaje de experimentos llenos
+    } else if (data.status === 'success') {
+      alert('Datos enviados correctamente'); // Mensaje de éxito, se enviarán los datos para almacenarlos
+    } else {
+      alert('Error al procesar los datos, no se envió el formulario'); // Lógica para errores no especificados
+    }*/
   })
   .catch(error => {
     console.error('Error:', error);
@@ -153,18 +168,6 @@ formulario.addEventListener('submit', (e) => {
 	console.log(campos['edad']);
 	if(campos['nombres'] && campos['apellidos'] && campos['dni'] && campos['correo'] && campos['edad']){
 		recuperarDatos();
-		//if(recuperarDatos()){
-		//	formulario.reset();
-		//	document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
-		//	setTimeout(() => {
-		//		document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');
-		//	}, 5000);
-		//	document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
-		//		icono.classList.remove('formulario__grupo-correcto');
-		//	});
-		//} else {
-		//	
-		//}
 	} else {
      		//if(distrito == null){
        		//	if(Number.isInteger(edad) && edad>=20){
