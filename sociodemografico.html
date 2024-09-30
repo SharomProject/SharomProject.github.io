@@ -9,7 +9,7 @@
     <!-- CSS que encontramos por internet, parece que es bacán -->
     <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="CSS/estilos.css">
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
     <div class="container mt-5">
@@ -17,14 +17,14 @@
         <form action="" id="formulario">
             <!-- DNI -->
             <div class="mb-3" id="grupo__dni">
-              <label for="dni" class="form-label">DNI</label>
-              <div class="formulario__grupo-input">
-                <input type="text" class="form-control formulario__input" id="dni" placeholder="Ingrese su DNI" required>
-                <i class="formulario__validacion-estado fas fa-times-circle"></i>
-              </div>
-              <p class="formulario__input-error">El DNI debe tener 8 dígitos y solo puede contener numeros</p>
+                <label for="dni" class="form-label">DNI</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="form-control formulario__input" id="dni" placeholder="Ingrese su DNI" required>
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">El DNI debe tener 8 dígitos y solo puede contener numeros</p>
             </div>
-          <!-- Estado civil -->
+            <!-- Estado civil -->
             <div class="mb-3" id="grupo__estCivil">
                 <label class="form-label">Estado civil</label>
                 <div class="form-check">
@@ -57,29 +57,29 @@
                         Conviviente
                     </label>
                 </div>
-              <p class="formulario__input-error">Debe elegir un estado civil</p>
+                <p class="formulario__input-error">Debe elegir un estado civil</p>
             </div>
-          <!-- Distrito de nacimiento -->
+            <!-- Distrito de nacimiento -->
             <div class="mb-3" id="grupo__distrito">
-              <label for="distrito" class="form-label">Distrito de nacimiento</label>
-              <div class="formulario__grupo-input">
-		      <select id="pais" name="pais">
-			      <option value="Asunción">Asunción</option>
-			      <option value="Cajamarca">Cajamarca</option>
-			      <option value="Chetilla">Chetilla</option>
-			      <option value="Cospán">Cospán</option>
-			      <option value="Jesús">Jesús</option>
-			      <option value="La Encañada">La Encañada</option>
-			      <option value="Llacanora">Llacanora</option>
-			      <option value="Los Baños del Inca">Los Baños del Inca</option>
-			      <option value="Magdalena">Magdalena</option>
-			      <option value="Namora">Namora</option>
-			      <option value="San Juan">San Juan</option>
-		      </select>
-                <i class="formulario__validacion-estado fas fa-times-circle"></i>
-              </div>
+                <label for="distrito" class="form-label">Distrito de nacimiento</label>
+                <div class="formulario__grupo-input">
+                    <select id="pais" name="pais">
+                        <option value="Asunción">Asunción</option>
+                        <option value="Cajamarca">Cajamarca</option>
+                        <option value="Chetilla">Chetilla</option>
+                        <option value="Cospán">Cospán</option>
+                        <option value="Jesús">Jesús</option>
+                        <option value="La Encañada">La Encañada</option>
+                        <option value="Llacanora">Llacanora</option>
+                        <option value="Los Baños del Inca">Los Baños del Inca</option>
+                        <option value="Magdalena">Magdalena</option>
+                        <option value="Namora">Namora</option>
+                        <option value="San Juan">San Juan</option>
+                    </select>
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
             </div>
-          <!-- Nivel de estudios -->
+            <!-- Nivel de estudios -->
             <div class="mb-3" id="grupo_nivEstudios">
                 <label class="form-label">Nivel de estudios</label>
                 <div class="form-check">
@@ -112,7 +112,7 @@
                         Secundaria incompleta
                     </label>
                 </div>
-              <div class="form-check">
+                <div class="form-check">
                     <input class="form-check-input" type="radio" name="nivel_estudios" id="supunicom" value="SUC" required>
                     <label class="form-check-label" for="supunicom">
                         Superior Universitaria Completa
@@ -124,7 +124,7 @@
                         Superior Universitaria Incompleta
                     </label>
                 </div>
-              <div class="form-check">
+                <div class="form-check">
                     <input class="form-check-input" type="radio" name="nivel_estudios" id="supnounicom" value="SNUC" required>
                     <label class="form-check-label" for="supnounicom">
                         Superior No Universitaria Completa
@@ -136,18 +136,18 @@
                         Superior No Universitaria Incompleta
                     </label>
                 </div>
-              <p class="formulario__input-error">Debe elegir un nivel de estudios</p>
+                <p class="formulario__input-error">Debe elegir un nivel de estudios</p>
             </div>
-          <!-- Profesión -->
+            <!-- Profesión -->
             <div class="mb-3" id="grupo__profesion">
-              <label for="profesion" class="form-label">Profesión</label>
-              <div class="formulario__grupo-input">
-                <input type="text" class="form-control formulario__input" id="profesion" placeholder="Ingrese su profesión" required>
-                <i class="formulario__validacion-estado fas fa-times-circle"></i>
-              </div>
-              <p class="formulario__input-error">La profesión debe contener solo letras</p>
+                <label for="profesion" class="form-label">Profesión</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="form-control formulario__input" id="profesion" placeholder="Ingrese su profesión" required>
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">La profesión debe contener solo letras</p>
             </div>
-          <!-- Ocupación -->
+            <!-- Ocupación -->
             <div class="mb-3" id="grupo_ocupacion">
                 <label class="form-label">Ocupación</label>
                 <div class="form-check">
@@ -157,50 +157,49 @@
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ocupacion" id="primariaIncom" value="PI" required>
+                    <input class="form-check-input" type="radio" name="ocupacion" id="independiente" value="Independiente" required>
                     <label class="form-check-label" for="primariaIncom">
                         Trabajador por cuenta propia
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ocupacion" id="primariaCom" value="PC" required>
-                    <label class="form-check-label" for="primariaCom">
+                    <input class="form-check-input" type="radio" name="ocupacion" id="empleado" value="Empleado" required>
+                    <label class="form-check-label" for="empleado">
                         Empleado
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ocupacion" id="secCompleta" value="SC" required>
-                    <label class="form-check-label" for="secCompleta">
+                    <input class="form-check-input" type="radio" name="ocupacion" id="obrero" value="Obrero" required>
+                    <label class="form-check-label" for="obrero">
                         Obrero
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ocupacion" id="secIncom" value="SI" required>
-                    <label class="form-check-label" for="secIncom">
+                    <input class="form-check-input" type="radio" name="ocupacion" id="tfnoremu" value="Trabajador familiar no remunerado" required>
+                    <label class="form-check-label" for="tfnoremu">
                         Trabajador familiar no remunerado
                     </label>
                 </div>
-              <div class="form-check">
-                    <input class="form-check-input" type="radio" name="nivel_estudios" id="supunicom" value="SUC" required>
-                    <label class="form-check-label" for="supunicom">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ocupacion" id="tbHog" value="Trabajador del hogar" required>
+                    <label class="form-check-label" for="tbHog">
                         Trabajador del hogar
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="nivel_estudios" id="supuniincom" value="SUI" required>
-                    <label class="form-check-label" for="supuniincom">
+                    <input class="form-check-input" type="radio" name="ocupacion" id="practicante" value="practicante" required>
+                    <label class="form-check-label" for="practicante">
                         Practicante
                     </label>
                 </div>
-              <div class="form-check">
-                    <input class="form-check-input" type="radio" name="nivel_estudios" id="supnounicom" value="SNUC" required>
-                    <label class="form-check-label" for="supnounicom">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ocupacion" id="otro" value="Otros" required>
+                    <label class="form-check-label" for="otro">
                         Otros
                     </label>
                 </div>
-              <p class="formulario__input-error">Debe elegir una ocupación</p>
             </div>
-          <!-- Sector en el que trabaja -->
+            <!-- Sector en el que trabaja -->
             <div class="mb-3" id="grupo_sector">
                 <label class="form-label">Sector en el que trabaja</label>
                 <div class="form-check">
@@ -221,7 +220,8 @@
                         Ambos
                     </label>
                 </div>
-          <!-- Cuenta con seguro -->
+            </div>
+            <!-- Cuenta con seguro -->
             <div class="mb-3" id="grupo_seguro">
                 <label class="form-label">Cuenta con seguro</label>
                 <div class="form-check">
@@ -248,8 +248,8 @@
                         No cuenta con seguro
                     </label>
                 </div>
-                
-          <!-- Sistema previsional -->
+            </div>
+            <!-- Sistema previsional -->
             <div class="mb-3" id="grupo_sisprevi">
                 <label class="form-label">Ocupación</label>
                 <div class="form-check">
@@ -271,34 +271,44 @@
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="nocuenta" id="nocuentasis" value="No cuenta" required>
+                    <input class="form-check-input" type="radio" name="sisprevi" id="nocuentasis" value="No cuenta" required>
                     <label class="form-check-label" for="nocuentasis">
                         No cuenta
                     </label>
                 </div>
-              <p class="formulario__input-error">Debe elegir una ocupación</p>
+                <p class="formulario__input-error">Debe elegir una ocupación</p>
             </div>
-              <div class="mb-3" id="grupo__consentimiento">
+            <div class="mb-3" id="grupo__consentimiento">
                 <label class="form-label">Consentimiento de tratamiento de información</label>
-                <div class="checkbox-group">
+                <div class="checkbox-group" onclick="openPopup()">
                     <input class="form-check-input" type="checkbox" name="aceptar" id="aceptar" value="true" required>
-                    <label class="form-check-label" for="aceptar" onclick="openPopup()">
+                    <label class="form-check-label" for="aceptar">
                         Aceptar política de tratamiento de datos
                     </label>
                 </div>
                 <p class="formulario__input-error">Necesita marcar esta casilla para continuar</p>
             </div>
-            <script>
-                function openPopup() {
-                    window.open('politicadedatos.html', 'popupWindow', 'width=400,height=300');
-                }
-            </script>
-      <button type="submit" class="btn btn-primary">Enviar</button>
-	    <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
+
+            <div class="formulario__mensaje" id="formulario__mensaje">
+                <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enviar</button>
+            <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
+        </form>
+    </div>
+            
+    <script>
+        function openPopup() {
+            document.getElementById('aceptar').checked = false;
+            window.open('politicadedatos.html', 'popupWindow', 'width=400,height=300')
+        }
+    </script>  
+    
     
     <!--S and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- JavaScript para capturar los datos del formulario -->
-    <script src="script.js"></script>
+    <script src="scriptsociodemo.js"></script>
 </body>
 </html>
