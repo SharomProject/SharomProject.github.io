@@ -1,57 +1,97 @@
 const formulario = document.getElementById('formulario');
 const inputs = document.querySelectorAll('formulario');
+
+document.addEventListener('DOMContentLoaded', () => {
+	const inputs = document.querySelectorAll('input');
+	inputs.forEach((input) => {
+		input.addEventListener('keyup', validarFormulario);
+		input.addEventListener('blur', validarFormulario);
+	});
+});
+
+
 const expresiones = {
-	nombres: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-	apellidos: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
+	profesion: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
 	dni: /^\d{8}$/, // 8 numeros.
-	correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 }
 
 let campos = {
 	dni: false,
-	nombres: false,
-	apellidos: false,
-	edad: false,
-	correo:false,
-	distrito: false
+	profesion: false
+}
+document.addEventListener('DOMContentLoaded', () => {
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach((input) => {
+	input.addEventListener('keyup', validarFormulario);
+	input.addEventListener('blur', validarFormulario);
+    });
+});
+
+formulario.addEventListener('submit', (e) => {
+	e.preventDefault();
+	if (campos['dni'] && campos['profesion']) {
+		recuperarDatos();
+		redirect();
+	} else {
+		document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
+	}
+ 	
+});
+
+const redirect = (exp, dni) => {
+	localStorage.setItem('exp', exp);
+	localStorage.setItem('dni', dni);
+	location.replace('https://localhost:7063/portalparacuestionarios.html');
+}
+
+const recuperarDatos = () => {
+
+	// Obtener los valores de los inputs del formulario
+	const dni = document.getElementById('dni').value;
+	const estadoCivil = document.querySelector('input[name="estado_civil"]:checked').value;
+	const distrito = document.getElementById('pais').value;
+	const nivelEstudios = document.querySelector('input[name="nivel_estudios"]:checked').value;
+	const profesion = document.getElementById('profesion').value;
+	const ocupacion = document.querySelector('input[name="ocupacion"]:checked').value;
+	const sector = document.querySelector('input[name="sector"]:checked').value;
+	const seguro = document.querySelector('input[name="seguro"]:checked').value;
+	const sistemaPrevisional = document.querySelector('input[name="sisprevi"]:checked').value;
+	const consentimiento = document.getElementById('aceptar').checked ? 'Sí' : 'No';
+
+	// Organizar los datos en un objeto
+	const formData = {
+		dni: dni,
+		estadoCivil: estadoCivil,
+		distrito: distrito,
+		nivelEstudios: nivelEstudios,
+		profesion: profesion,
+		ocupacion: ocupacion,
+		sector: sector,
+		seguro: seguro,
+		sistemaPrevisional: sistemaPrevisional,
+		consentimiento: consentimiento
+	};
+
+	//if(dni.exist)
+	//enviar cosas, solo se deben completar algunas columnas, solo algunas, hay que verificar cómo funciona el SheetDB
+	//recuperar Experimeto
+
+
+
+	alert(formData);
 }
 
 const validarFormulario = (e) => {
 	e.preventDefault();  // Asegúrate de que estás recibiendo el evento
 	let event = e.target;  // Verifica que estás accediendo al elemento correcto
 	switch (e.target.id) {
-		case "nombres":
-			validarCampo(expresiones.nombres, e.target, 'nombres');
-		break;
-		case "apellidos":
-			validarCampo(expresiones.apellidos, e.target, 'apellidos');
-		break;
-		case "correo":
-			validarCampo(expresiones.correo, e.target, 'correo');
-		break;
 		case "dni":
 			validarCampo(expresiones.dni, e.target, 'dni');
 		break;
-		case "edad":
-			const edad = parseInt(e.target.value);
-			if(Number.isInteger(edad) && edad>=20){
-				document.getElementById('grupo__edad').classList.remove('formulario__grupo-incorrecto');
-				document.getElementById('grupo__edad').classList.add('formulario__grupo-correcto');
-			    	document.querySelector('#grupo__edad i').classList.add('fa-check-circle');
-			   	document.querySelector('#grupo__edad i').classList.remove('fa-times-circle');
-			    	document.querySelector('#grupo__edad .formulario__input-error').classList.remove('formulario__input-error-activo');
-			    	campos['edad'] = true;
-				console.log('sixd');
-	    		} else {
-		    		document.getElementById('grupo__edad').classList.add('formulario__grupo-incorrecto');
-		    		document.getElementById('grupo__edad').classList.remove('formulario__grupo-correcto');
-		    		document.querySelector('#grupo__edad i').classList.add('fa-times-circle');
-		    		document.querySelector('#grupo__edad i').classList.remove('fa-check-circle');
-		    		document.querySelector('#grupo__edad .formulario__input-error').classList.add('formulario__input-error-activo');
-		   		campos['edad'] = false;
-				console.log('xdno');
-	    		}
-    		break;
+
+		case "profesion":
+			validarCampo(expresiones.profesion, e.target, 'profesion');
+		break;
 	}
 }
 
@@ -91,27 +131,3 @@ const validarCampo = (expresion, input, campo) => {
 		console.log('noxd');
 	}
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    const inputs = document.querySelectorAll('input');
-    inputs.forEach((input) => {
-	input.addEventListener('keyup', validarFormulario);
-	input.addEventListener('blur', validarFormulario);
-    });
-});
-
-formulario.addEventListener('submit', (e) => {
-	e.preventDefault();
-	console.log('xd');
-	console.log(campos['nombres']);
-	console.log(campos['apellidos']);
-	console.log(campos['dni']);
-	console.log(campos['correo']);
-	console.log(campos['edad']);
-	if(campos['nombres'] && campos['apellidos'] && campos['dni'] && campos['correo'] && campos['edad']){
-		recuperarDatos();
-	} else {
-		document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
-	}
- 	
-});
