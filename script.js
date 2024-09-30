@@ -22,42 +22,228 @@ const recuperarDatos = () => {
     distrito: distrito
   };
 
-  let headers = new Headers();
+obtenerDatosParaValidacion().then(datos => {
+    
+    // Paso 1: Validar si el DNI ya existe
+    const dniExistente = datos.some(persona => persona.dni === formData.dni);
+    if (dniExistente) {
+      alert('Ya se ha registrado a este DNI, pruebe con otro.');
+      return;
+    }
 
-  headers.append('Content-Type', 'application/json');
-  headers.append('Accept', 'application/json');
+    // Paso 2: Validar cuotas de edad y género
+    const esValidoCuotas = validarCuotas(formData.edad, formData.sexo, formData.distrito, datos);
+    if (!esValidoCuotas) {
+      alert('El límite de personas en este rango de edad y género ha sido alcanzado.');
+      return;
+    }
+    
+    // Paso 3: Contar cuantos experimentos hay asignados para poder asignar uno válido
+    const conteo = {};
+    
+    datos.forEach(persona => {
+      if (persona.idexperimento) {
+        conteo[persona.idexperimento] = (conteo[persona.idexperimento] || 0) + 1;
+      }
+    });
+    
+    const experimentos = [
+    'SCC1', 'SCC2', 'SCC3', 'SCC4', 'SCC5', 'SCC6', 'SCC7', 'SCC8', 'SCBI1', 'SCBI2',
+    'BCC1', 'BCC2', 'BCC3', 'BCC4', 'BCC5', 'BCC6', 'BCC7', 'BCC8', 'BCBI1', 'BCBI2',
+    'PCC1', 'PCC2', 'PCC3', 'PCC4', 'PCC5', 'PCC6', 'PCC7', 'PCC8', 'PCBI1', 'PCBI2',
+    'RCC1', 'RCC2', 'RCC3', 'RCC4', 'RCC5', 'RCC6', 'RCC7', 'RCC8', 'RCBI1', 'RCBI2'
+  ];
 
-	//https://sheetdb.io/api/v1/zednnydm44168
-  fetch('https://script.google.com/macros/s/AKfycbwy3aJwbjW7Dqwk3SEJaW_q3gzOYrjoR_WDl6tkuHCmcCmwIizeQuGlYbwsWX5sXSkh/exec', {
+  // Filtrar experimentos que tienen menos de 10 asignaciones
+  const experimentosDisponibles = experimentos.filter(experimento => {
+    return (conteo[experimento] || 0) < 10;  // Si no está en el conteo, tiene 0 asignaciones
+  });
+
+  if (experimentosDisponibles.length === 0) {
+    alert('No hay experimentos disponibles para asignar.');
+    return;
+  }
+
+  // Seleccionar uno de los experimentos disponibles de manera aleatoria
+  const experimentoAleatorio = experimentosDisponibles[Math.floor(Math.random() * experimentosDisponibles.length)];
+
+  const formDataIdExperimento = {
+    dni: dni,
+    nombres: nombres,
+    apellidos: apellidos,
+    edad: edad,
+    correo: correo,
+    sexo: sexo,
+    distrito: distrito,
+    idexperimento: experimentoAleatorio
+  };
+
+    // Paso 4: Si todas las validaciones son correctas, enviar los datos
+    enviarDatos(formDataIdExperimento);
+  });
+}
+
+//método para enviar datos, una vez se haya validado todo
+function enviarDatos(formData) {
+  fetch('https://sheetdb.io/api/v1/de641i4213xkw', {
     method: 'POST',
-	  mode:'cors',
-     headers: {
-	'Content-Type':'application/json'
-     },
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
     body: JSON.stringify(formData)
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.created === 1) {
+        alert('Datos enviados correctamente');
+      } else {
+        alert('Error al enviar los datos');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
+
+// Obtener todos los datos de la hoja (o una búsqueda específica) para validar antes de enviar
+function obtenerDatosParaValidacion() {
+  return fetch('https://sheetdb.io/api/v1/de641i4213xkw', {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
   .then(response => response.json())
   .then(data => {
-    console.log(data.status);
-	alert(data.status);
-   /* if (data.status === 'dni_ya_existe') {
-      alert('Ya se ha registrado a este DNI, pruebe con otro'); // El mensaje "El DNI ya está registrado" aparece en pantalla
-    } else if (data.status === 'masc_quota_full') {
-      alert('ya tenemos suficientes encuestados de su edad y género, no será registrado'); // Mensaje de cuota masculina llena
-    } else if (data.status === 'fem_quota_full') {
-      alert('ya tenemos suficientes encuestados de su edad y género, no será registrado'); // Mensaje de cuota femenina llena
-    } else if (data.status === 'no_experiments_available') {
-      alert('ya hemos registrado a todos los participantes, gracias por su participación'); // Mensaje de experimentos llenos
-    } else if (data.status === 'success') {
-      alert('Datos enviados correctamente'); // Mensaje de éxito, se enviarán los datos para almacenarlos
-    } else {
-      alert('Error al procesar los datos, no se envió el formulario'); // Lógica para errores no especificados
-    }*/
+    return data;  // Devolvemos los datos como array para que se puedan procesar en otra parte del código
   })
   .catch(error => {
-    console.error('Error:', error);
+    console.error('Error al obtener los datos para validación:', error);
   });
 }
+
+// Método para validar las cuotas entre un rango de edades, género y distrito
+function validarCuotas(edad, genero, distrito, datos) {
+  console.log('edad de la persona: ' + edad);
+  console.log('género de la persona: ' + genero);
+  // Obtener los límites de acuerdo al género, edad y distrito
+  const limiteMasculino = identificarLimiteMasculino(edad, distrito);
+  const limiteFemenino = identificarLimiteFemenino(edad, distrito);
+
+  console.log('Limite masculino: ' + limiteMasculino);
+  console.log('Limite femenino: ' + limiteFemenino);
+
+  // Obtener el rango de edad correspondiente
+  const rangoEdad = obtenerRangoEdad(edad);
+  
+  // Filtrar los datos por el rango de edad, género y distrito
+  const personasEnRango = datos.filter(persona => {
+    return persona.edad >= rangoEdad.edad_min && persona.edad <= rangoEdad.edad_max &&
+           persona.sexo === genero && persona.distrito === distrito;
+  });
+
+  console.log('Personas en rango: ' + personasEnRango.length);
+
+  if (genero === 'M' && personasEnRango.length >= limiteMasculino) {
+    return false;  // Límite de hombres alcanzado
+  } else if (genero === 'F' && personasEnRango.length >= limiteFemenino) {
+    return false;  // Límite de mujeres alcanzado
+  }
+  
+  return true;  // No se ha alcanzado el límite
+}
+
+
+// Método para identificar el límite masculino basado en edad y distrito
+function identificarLimiteMasculino(edad, distrito) {
+  const rangos = [
+    { distrito: "Cajamarca", edad_min: 20, edad_max: 24, total_masculino: 23 },
+    { distrito: "Cajamarca", edad_min: 25, edad_max: 29, total_masculino: 22 },
+    { distrito: "Cajamarca", edad_min: 30, edad_max: 34, total_masculino: 21 },
+    { distrito: "Cajamarca", edad_min: 35, edad_max: 39, total_masculino: 18 },
+    { distrito: "Cajamarca", edad_min: 40, edad_max: 44, total_masculino: 15 },
+    { distrito: "Cajamarca", edad_min: 45, edad_max: 49, total_masculino: 13 },
+    { distrito: "Cajamarca", edad_min: 50, edad_max: 54, total_masculino: 11 },
+    { distrito: "Cajamarca", edad_min: 55, edad_max: 59, total_masculino: 8 },
+    { distrito: "Cajamarca", edad_min: 60, edad_max: 64, total_masculino: 7 },
+    { distrito: "Cajamarca", edad_min: 65, edad_max: 100, total_masculino: 15 },
+    { distrito: "Los Baños del Inca", edad_min: 20, edad_max: 24, total_masculino: 6 },
+    { distrito: "Los Baños del Inca", edad_min: 25, edad_max: 29, total_masculino: 6 },
+    { distrito: "Los Baños del Inca", edad_min: 30, edad_max: 34, total_masculino: 6 },
+    { distrito: "Los Baños del Inca", edad_min: 35, edad_max: 39, total_masculino: 5 },
+    { distrito: "Los Baños del Inca", edad_min: 40, edad_max: 44, total_masculino: 4 },
+    { distrito: "Los Baños del Inca", edad_min: 45, edad_max: 49, total_masculino: 3 },
+    { distrito: "Los Baños del Inca", edad_min: 50, edad_max: 54, total_masculino: 2 },
+    { distrito: "Los Baños del Inca", edad_min: 55, edad_max: 59, total_masculino: 2 },
+    { distrito: "Los Baños del Inca", edad_min: 60, edad_max: 64, total_masculino: 2 },
+    { distrito: "Los Baños del Inca", edad_min: 65, edad_max: 100, total_masculino: 4 }
+  ];
+
+  const rangoEncontrado = rangos.find(rango => {
+    return rango.distrito === distrito && edad >= rango.edad_min && edad <= rango.edad_max;
+  });
+
+  return rangoEncontrado ? rangoEncontrado.total_masculino : 0; // Devolver el límite o 0 si no se encuentra
+}
+
+// Método para identificar el límite femenino basado en edad y distrito
+function identificarLimiteFemenino(edad, distrito) {
+  const rangos = [
+    { distrito: "Cajamarca", edad_min: 20, edad_max: 24, total_femenino: 25 },
+    { distrito: "Cajamarca", edad_min: 25, edad_max: 29, total_femenino: 24 },
+    { distrito: "Cajamarca", edad_min: 30, edad_max: 34, total_femenino: 23 },
+    { distrito: "Cajamarca", edad_min: 35, edad_max: 39, total_femenino: 20 },
+    { distrito: "Cajamarca", edad_min: 40, edad_max: 44, total_femenino: 17 },
+    { distrito: "Cajamarca", edad_min: 45, edad_max: 49, total_femenino: 14 },
+    { distrito: "Cajamarca", edad_min: 50, edad_max: 54, total_femenino: 11 },
+    { distrito: "Cajamarca", edad_min: 55, edad_max: 59, total_femenino: 9 },
+    { distrito: "Cajamarca", edad_min: 60, edad_max: 64, total_femenino: 7 },
+    { distrito: "Cajamarca", edad_min: 65, edad_max: 100, total_femenino: 17 },
+    { distrito: "Los Baños del Inca", edad_min: 20, edad_max: 24, total_femenino: 6 },
+    { distrito: "Los Baños del Inca", edad_min: 25, edad_max: 29, total_femenino: 6 },
+    { distrito: "Los Baños del Inca", edad_min: 30, edad_max: 34, total_femenino: 6 },
+    { distrito: "Los Baños del Inca", edad_min: 35, edad_max: 39, total_femenino: 5 },
+    { distrito: "Los Baños del Inca", edad_min: 40, edad_max: 44, total_femenino: 4 },
+    { distrito: "Los Baños del Inca", edad_min: 45, edad_max: 49, total_femenino: 3 },
+    { distrito: "Los Baños del Inca", edad_min: 50, edad_max: 54, total_femenino: 3 },
+    { distrito: "Los Baños del Inca", edad_min: 55, edad_max: 59, total_femenino: 2 },
+    { distrito: "Los Baños del Inca", edad_min: 60, edad_max: 64, total_femenino: 2 },
+    { distrito: "Los Baños del Inca", edad_min: 65, edad_max: 100, total_femenino: 4 }
+  ];
+
+  const rangoEncontrado = rangos.find(rango => {
+    return rango.distrito === distrito && edad >= rango.edad_min && edad <= rango.edad_max;
+  });
+
+  return rangoEncontrado ? rangoEncontrado.total_femenino : 0; // Devolver el límite o 0 si no se encuentra
+}
+
+
+// Función para obtener el rango de edad basado en la edad y el distrito
+function obtenerRangoEdad(edad) {
+  const rangos = [
+    { edad_min: 20, edad_max: 24 },
+    { edad_min: 25, edad_max: 29 },
+    { edad_min: 30, edad_max: 34 },
+    { edad_min: 35, edad_max: 39 },
+    { edad_min: 40, edad_max: 44 },
+    { edad_min: 45, edad_max: 49 },
+    { edad_min: 50, edad_max: 54 },
+    { edad_min: 55, edad_max: 59 },
+    { edad_min: 60, edad_max: 64 },
+    { edad_min: 65, edad_max: 100 }
+  ];
+
+  const rangoEncontrado = rangos.find(rango => {
+    return edad >= rango.edad_min && edad <= rango.edad_max;
+  });
+
+  return rangoEncontrado ? rangoEncontrado : { edad_min: 0, edad_max: 0 };  // Si no encuentra el rango, devuelve 0
+}
+
 
 const expresiones = {
 	nombres: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
@@ -170,19 +356,6 @@ formulario.addEventListener('submit', (e) => {
 	if(campos['nombres'] && campos['apellidos'] && campos['dni'] && campos['correo'] && campos['edad']){
 		recuperarDatos();
 	} else {
-     		//if(distrito == null){
-       		//	if(Number.isInteger(edad) && edad>=20){
-	 	//	    document.getElementById(`grupo__distrito`).classList.remove('formulario__grupo-incorrecto');
-	 	//	    document.getElementById(`grupo__distrito`).classList.add('formulario__grupo-correcto');
-		//	    document.querySelector(`#grupo__distrito .formulario__input-error`).classList.remove('formulario__input-error-activo');
-	 	//	    campos[edad] = true;
-	     	//	} else {
-	 	//	    document.getElementById(`grupo__distrito`).classList.add('formulario__grupo-incorrecto');
-	 	//	    document.getElementById(`grupo__distrito`).classList.remove('formulario__grupo-correcto');
-		//	    document.querySelector(`#grupo__distrito .formulario__input-error`).classList.add('formulario__input-error-activo');
-	 	//	    campos[edad] = false;
-	    	//	}
-    		//}
 		document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
 	}
  	
