@@ -67,6 +67,32 @@ obtenerDatosParaValidacion().then(datos => {
   // Seleccionar uno de los experimentos disponibles de manera aleatoria
   const experimentoAleatorio = experimentosDisponibles[Math.floor(Math.random() * experimentosDisponibles.length)];
 
+    // Paso 4: Contar cuantas fechas hay asignadas para poder asignar una válida
+    const conteoFechas = {};
+    
+    datos.forEach(persona => {
+      if (persona.fechaformulario) {
+        conteoFechas[persona.fechaformulario] = (conteoFechas[persona.fechaformulario] || 0) + 1;
+      }
+    });
+    
+    const fechas = [
+    'fecha1', 'fecha2', 'fecha3', 'fecha4'
+  ];
+
+  // Filtrar fechas que tienen menos de 100 asignaciones
+  const fechasDisponibles = fechas.filter(fecha => {
+    return (conteoFechas[fecha] || 0) < 100;  // Si no está en el conteo, tiene 0 asignaciones
+  });
+
+  if (fechasDisponibles.length === 0) {
+    alert('No hay fechas disponibles para asignar.');
+    return;
+  }
+
+  // Seleccionar uno de las fechas disponibles de manera aleatoria
+  const fechaAleatoria = fechasDisponibles[Math.floor(Math.random() * fechasDisponibles.length)];
+
   const formDataIdExperimento = {
     dni: dni,
     nombres: nombres,
@@ -75,7 +101,8 @@ obtenerDatosParaValidacion().then(datos => {
     correo: correo,
     sexo: sexo,
     distrito: distrito,
-    idexperimento: experimentoAleatorio
+    idexperimento: experimentoAleatorio,
+    fechaformulario: fechaAleatoria
   };
 
     // Paso 4: Si todas las validaciones son correctas, enviar los datos
@@ -145,7 +172,7 @@ function validarCuotas(edad, genero, distrito, datos) {
            persona.sexo === genero && persona.distrito === distrito;
   });
 
-  console.log('Personas en rango: ' + personasEnRango.length);
+  console.log('Personas en rango: ' + (personasEnRango.length + 1));
 
   if (genero === 'M' && personasEnRango.length >= limiteMasculino) {
     return false;  // Límite de hombres alcanzado
