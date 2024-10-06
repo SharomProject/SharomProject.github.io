@@ -9,21 +9,26 @@
     <!-- CSS que encontramos por internet, parece que es bacán -->
     <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="CSS/estilos.css">
+    <link rel="stylesheet" href="estilos.css">
     <title>Consentimiento de tratamiento de datos</title>
 </head>
 
 <body>
-    <h1>Formato de consentimiento</h1>
-    <h2>Consentimiento Informado para Participantes de Investigación</h2>
-    <p>El propósito de proporcionarle este consentimiento es con el fin de informar la naturaleza de la investigación y la función como participante.....</p>
-    <form>
-        <label for="checkbox-popup">Aceptar términos y condiciones</label>
-        <br><br />
-        <button type="button" onclick="rechazar()">Rechazar</button>
-        <button type="button" onclick="aceptar()">Aceptar</button>
-    </form>
-
+    <main>
+        <div class="center">
+            <h1>Formato de consentimiento</h1>
+            <h2>Consentimiento Informado para Participantes de Investigación</h2>
+            <p>El propósito de proporcionarle este consentimiento es con el fin de informar la naturaleza de la investigación y la función como participante.....</p>
+        </div>
+        <div class="center">
+            <form>
+                <label for="checkbox-popup">Aceptar términos y condiciones</label>
+                <br><br />
+                <button type="button" onclick="rechazar()" class="btn btn-secondary">Rechazar</button>
+                <button type="button" onclick="aceptar()" class="btn btn-success">Aceptar</button>
+            </form>
+        </div>
+    </main>
     <script>
         function aceptar() {
             if (window.opener) {
