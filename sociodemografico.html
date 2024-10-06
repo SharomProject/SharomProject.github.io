@@ -9,11 +9,11 @@
     <!-- CSS que encontramos por internet, parece que es bacán -->
     <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="CSS/estilos.css">
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="text-center">Formulario de Participantes</h2>
+        <h2 class="text-center">Ficha sociodemográfica</h2>
         <form action="" id="formulario">
             <!-- DNI -->
             <div class="mb-3" id="grupo__dni">
@@ -26,44 +26,47 @@
             </div>
             <!-- Estado civil -->
             <div class="mb-3" id="grupo__estCivil">
-                <label class="form-label">Estado civil</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="estado_civil" id="soltero" value="Soltero" required>
-                    <label class="form-check-label" for="soltero">
-                        Soltero
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="estado_civil" id="casado" value="Casado" required>
-                    <label class="form-check-label" for="casado">
-                        Casado
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="estado_civil" id="viudo" value="Viudo" required>
-                    <label class="form-check-label" for="viudo">
-                        Viudo
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="estado_civil" id="divorciado" value="Divorciado" required>
-                    <label class="form-check-label" for="divorciado">
-                        Divorciado
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="estado_civil" id="conviviente" value="Conviviente" required>
-                    <label class="form-check-label" for="conviviente">
-                        Conviviente
-                    </label>
-                </div>
+                <fieldset>
+                    <legend>Estado civil</legend>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="estado_civil" id="soltero" value="Soltero" required>
+                        <label class="form-check-label" for="soltero">
+                            Soltero
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="estado_civil" id="casado" value="Casado" required>
+                        <label class="form-check-label" for="casado">
+                            Casado
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="estado_civil" id="viudo" value="Viudo" required>
+                        <label class="form-check-label" for="viudo">
+                            Viudo
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="estado_civil" id="divorciado" value="Divorciado" required>
+                        <label class="form-check-label" for="divorciado">
+                            Divorciado
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="estado_civil" id="conviviente" value="Conviviente" required>
+                        <label class="form-check-label" for="conviviente">
+                            Conviviente
+                        </label>
+                    </div>
+                </fieldset>
+               
                 <p class="formulario__input-error">Debe elegir un estado civil</p>
             </div>
             <!-- Distrito de nacimiento -->
             <div class="mb-3" id="grupo__distrito">
                 <label for="distrito" class="form-label">Distrito de nacimiento</label>
                 <div class="formulario__grupo-input">
-                    <select id="pais" name="pais">
+                    <select id="distrito" name="distrito">
                         <option value="Asunción">Asunción</option>
                         <option value="Cajamarca">Cajamarca</option>
                         <option value="Chetilla">Chetilla</option>
@@ -81,61 +84,64 @@
             </div>
             <!-- Nivel de estudios -->
             <div class="mb-3" id="grupo_nivEstudios">
-                <label class="form-label">Nivel de estudios</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="nivel_estudios" id="sinnivel" value="SN" required>
-                    <label class="form-check-label" for="sinnivel">
-                        Sin nivel (ningún nivel de estudios iniciado)
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="nivel_estudios" id="primariaIncom" value="PI" required>
-                    <label class="form-check-label" for="primariaIncom">
-                        Primaria incompleta
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="nivel_estudios" id="primariaCom" value="PC" required>
-                    <label class="form-check-label" for="primariaCom">
-                        Primaria completa
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="nivel_estudios" id="secCompleta" value="SC" required>
-                    <label class="form-check-label" for="secCompleta">
-                        Secundaria completa
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="nivel_estudios" id="secIncom" value="SI" required>
-                    <label class="form-check-label" for="secIncom">
-                        Secundaria incompleta
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="nivel_estudios" id="supunicom" value="SUC" required>
-                    <label class="form-check-label" for="supunicom">
-                        Superior Universitaria Completa
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="nivel_estudios" id="supuniincom" value="SUI" required>
-                    <label class="form-check-label" for="supuniincom">
-                        Superior Universitaria Incompleta
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="nivel_estudios" id="supnounicom" value="SNUC" required>
-                    <label class="form-check-label" for="supnounicom">
-                        Superior No Universitaria Completa
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="nivel_estudios" id="supnouniincom" value="SNUI" required>
-                    <label class="form-check-label" for="supnouniincom">
-                        Superior No Universitaria Incompleta
-                    </label>
-                </div>
+                <fieldset>
+                    <legend>Nivel de estudios</legend>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="nivel_estudios" id="sinnivel" value="SN" required>
+                        <label class="form-check-label" for="sinnivel">
+                            Sin nivel (ningún nivel de estudios iniciado)
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="nivel_estudios" id="primariaIncom" value="PI" required>
+                        <label class="form-check-label" for="primariaIncom">
+                            Primaria incompleta
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="nivel_estudios" id="primariaCom" value="PC" required>
+                        <label class="form-check-label" for="primariaCom">
+                            Primaria completa
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="nivel_estudios" id="secCompleta" value="SC" required>
+                        <label class="form-check-label" for="secCompleta">
+                            Secundaria completa
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="nivel_estudios" id="secIncom" value="SI" required>
+                        <label class="form-check-label" for="secIncom">
+                            Secundaria incompleta
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="nivel_estudios" id="supunicom" value="SUC" required>
+                        <label class="form-check-label" for="supunicom">
+                            Superior Universitaria Completa
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="nivel_estudios" id="supuniincom" value="SUI" required>
+                        <label class="form-check-label" for="supuniincom">
+                            Superior Universitaria Incompleta
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="nivel_estudios" id="supnounicom" value="SNUC" required>
+                        <label class="form-check-label" for="supnounicom">
+                            Superior No Universitaria Completa
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="nivel_estudios" id="supnouniincom" value="SNUI" required>
+                        <label class="form-check-label" for="supnouniincom">
+                            Superior No Universitaria Incompleta
+                        </label>
+                    </div>
+                </fieldset>
+                
                 <p class="formulario__input-error">Debe elegir un nivel de estudios</p>
             </div>
             <!-- Profesión -->
@@ -149,133 +155,142 @@
             </div>
             <!-- Ocupación -->
             <div class="mb-3" id="grupo_ocupacion">
-                <label class="form-label">Ocupación</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ocupacion" id="empleador" value="Empleador" required>
-                    <label class="form-check-label" for="empleador">
-                        Empleador
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ocupacion" id="independiente" value="Independiente" required>
-                    <label class="form-check-label" for="primariaIncom">
-                        Trabajador por cuenta propia
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ocupacion" id="empleado" value="Empleado" required>
-                    <label class="form-check-label" for="empleado">
-                        Empleado
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ocupacion" id="obrero" value="Obrero" required>
-                    <label class="form-check-label" for="obrero">
-                        Obrero
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ocupacion" id="tfnoremu" value="Trabajador familiar no remunerado" required>
-                    <label class="form-check-label" for="tfnoremu">
-                        Trabajador familiar no remunerado
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ocupacion" id="tbHog" value="Trabajador del hogar" required>
-                    <label class="form-check-label" for="tbHog">
-                        Trabajador del hogar
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ocupacion" id="practicante" value="practicante" required>
-                    <label class="form-check-label" for="practicante">
-                        Practicante
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ocupacion" id="otro" value="Otros" required>
-                    <label class="form-check-label" for="otro">
-                        Otros
-                    </label>
-                </div>
+                <fieldset>
+                    <legend>Ocupación</legend>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="ocupacion" id="empleador" value="Empleador" required>
+                        <label class="form-check-label" for="empleador">
+                            Empleador
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="ocupacion" id="independiente" value="Independiente" required>
+                        <label class="form-check-label" for="primariaIncom">
+                            Trabajador por cuenta propia
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="ocupacion" id="empleado" value="Empleado" required>
+                        <label class="form-check-label" for="empleado">
+                            Empleado
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="ocupacion" id="obrero" value="Obrero" required>
+                        <label class="form-check-label" for="obrero">
+                            Obrero
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="ocupacion" id="tfnoremu" value="Trabajador familiar no remunerado" required>
+                        <label class="form-check-label" for="tfnoremu">
+                            Trabajador familiar no remunerado
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="ocupacion" id="tbHog" value="Trabajador del hogar" required>
+                        <label class="form-check-label" for="tbHog">
+                            Trabajador del hogar
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="ocupacion" id="practicante" value="practicante" required>
+                        <label class="form-check-label" for="practicante">
+                            Practicante
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="ocupacion" id="otroOcu" value="Otros" required>
+                        <label class="form-check-label" for="otroOcu">
+                            Otros
+                        </label>
+                    </div>
+                </fieldset>
+                
             </div>
             <!-- Sector en el que trabaja -->
             <div class="mb-3" id="grupo_sector">
-                <label class="form-label">Sector en el que trabaja</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sector" id="publico" value="Público" required>
-                    <label class="form-check-label" for="empleador">
-                        Público
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sector" id="privado" value="Privado" required>
-                    <label class="form-check-label" for="primariaIncom">
-                        Privado
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sector" id="ambos" value="Ambos" required>
-                    <label class="form-check-label" for="primariaCom">
-                        Ambos
-                    </label>
-                </div>
+                <fieldset>
+                    <legend>Sector en el que trabaja</legend>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sector" id="publico" value="Público" required>
+                        <label class="form-check-label" for="empleador">
+                            Público
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sector" id="privado" value="Privado" required>
+                        <label class="form-check-label" for="primariaIncom">
+                            Privado
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sector" id="ambos" value="Ambos" required>
+                        <label class="form-check-label" for="primariaCom">
+                            Ambos
+                        </label>
+                    </div>
+                </fieldset>
             </div>
             <!-- Cuenta con seguro -->
             <div class="mb-3" id="grupo_seguro">
-                <label class="form-label">Cuenta con seguro</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="seguro" id="essalud" value="EsSalud" required>
-                    <label class="form-check-label" for="essalud">
-                        EsSalud
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="seguro" id="sis" value="SIS" required>
-                    <label class="form-check-label" for="sis">
-                        SIS
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="seguro" id="privado" value="Privado" required>
-                    <label class="form-check-label" for="privado">
-                        Privado
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="seguro" id="nocuenta" value="No cuenta" required>
-                    <label class="form-check-label" for="nocuenta">
-                        No cuenta con seguro
-                    </label>
-                </div>
+                <fieldset>
+                    <legend>Cuenta con seguro</legend>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="seguro" id="essalud" value="EsSalud" required>
+                        <label class="form-check-label" for="essalud">
+                            EsSalud
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="seguro" id="sis" value="SIS" required>
+                        <label class="form-check-label" for="sis">
+                            SIS
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="seguro" id="privadoSeg" value="Privado" required>
+                        <label class="form-check-label" for="privadoSeg">
+                            Privado
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="seguro" id="nocuenta" value="No cuenta" required>
+                        <label class="form-check-label" for="nocuenta">
+                            No cuenta con seguro
+                        </label>
+                    </div>
+                </fieldset>                
             </div>
             <!-- Sistema previsional -->
             <div class="mb-3" id="grupo_sisprevi">
-                <label class="form-label">Ocupación</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sisprevi" id="afp" value="AFP" required>
-                    <label class="form-check-label" for="afp">
-                        AFP
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sisprevi" id="onp" value="ONP" required>
-                    <label class="form-check-label" for="onp">
-                        ONP
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sisprevi" id="otro" value="Otro" required>
-                    <label class="form-check-label" for="otro">
-                        Otro
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sisprevi" id="nocuentasis" value="No cuenta" required>
-                    <label class="form-check-label" for="nocuentasis">
-                        No cuenta
-                    </label>
-                </div>
+                <fieldset>
+                    <legend>Sistema previsional</legend>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sisprevi" id="afp" value="AFP" required>
+                        <label class="form-check-label" for="afp">
+                            AFP
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sisprevi" id="onp" value="ONP" required>
+                        <label class="form-check-label" for="onp">
+                            ONP
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sisprevi" id="otroSis" value="Otro" required>
+                        <label class="form-check-label" for="otroSis">
+                            Otro
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sisprevi" id="nocuentasis" value="No cuenta" required>
+                        <label class="form-check-label" for="nocuentasis">
+                            No cuenta
+                        </label>
+                    </div>
+                </fieldset>
                 <p class="formulario__input-error">Debe elegir una ocupación</p>
             </div>
             <div class="mb-3" id="grupo__consentimiento">
@@ -293,7 +308,7 @@
                 <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
             </div>
 
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="submit" class="btn btn-success">Enviar</button>
             <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
         </form>
     </div>
