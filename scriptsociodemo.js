@@ -2,11 +2,15 @@ const formulario = document.getElementById('formulario');
 const inputs = document.querySelectorAll('formulario');
 
 document.addEventListener('DOMContentLoaded', () => {
-	const inputs = document.querySelectorAll('input');
-	inputs.forEach((input) => {
-		input.addEventListener('keyup', validarFormulario);
-		input.addEventListener('blur', validarFormulario);
-	});
+	if (localStorage.getItem("dni") == null) {
+		location.replace('https://localhost:7063/dniexiste.html');
+	} else {
+		const inputs = document.querySelectorAll('input');
+		inputs.forEach((input) => {
+			input.addEventListener('keyup', validarFormulario);
+			input.addEventListener('blur', validarFormulario);
+		});
+	}
 });
 
 
@@ -19,19 +23,12 @@ let campos = {
 	dni: false,
 	profesion: false
 }
-document.addEventListener('DOMContentLoaded', () => {
-    const inputs = document.querySelectorAll('input');
-    inputs.forEach((input) => {
-	input.addEventListener('keyup', validarFormulario);
-	input.addEventListener('blur', validarFormulario);
-    });
-});
+
 
 formulario.addEventListener('submit', (e) => {
 	e.preventDefault();
 	if (campos['dni'] && campos['profesion']) {
 		recuperarDatos();
-		redirect();
 	} else {
 		document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
 	}
@@ -40,8 +37,7 @@ formulario.addEventListener('submit', (e) => {
 
 const redirect = (exp, dni) => {
 	localStorage.setItem('exp', exp);
-	localStorage.setItem('dni', dni);
-	location.replace('https://localhost:7063/portalparacuestionarios.html');
+	//location.replace('https://localhost:7063/portalparacuestionarios.html');
 }
 
 const recuperarDatos = () => {
@@ -49,7 +45,7 @@ const recuperarDatos = () => {
 	// Obtener los valores de los inputs del formulario
 	const dni = document.getElementById('dni').value;
 	const estadoCivil = document.querySelector('input[name="estado_civil"]:checked').value;
-	const distrito = document.getElementById('pais').value;
+	const distrito = document.getElementById('distrito').value;
 	const nivelEstudios = document.querySelector('input[name="nivel_estudios"]:checked').value;
 	const profesion = document.getElementById('profesion').value;
 	const ocupacion = document.querySelector('input[name="ocupacion"]:checked').value;
@@ -72,13 +68,56 @@ const recuperarDatos = () => {
 		consentimiento: consentimiento
 	};
 
-	//if(dni.exist)
-	//enviar cosas, solo se deben completar algunas columnas, solo algunas, hay que verificar cómo funciona el SheetDB
-	//recuperar Experimeto
+	if (campos[dni] && campos[profesion]) {
+		obtenerDatosParaValidacion().then(datos => {
+			const dniExistente = datos.some(persona => persona.dni === dni);
+			if (dniExistente) {
+				const exp = obtenerExperimento(dni);
+				localStorage.setItem("exp", exp);
+				console.log(dni);
+				console.log(exp);
+				//evnair datos SheetBD
 
-
+			} else {
+				document.getElementById('formulario__mensaje-exito').classList.remove('mensaje-exito-activo');
+				document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
+				return;
+			}
+		});
+	}
+	
 
 	alert(formData);
+}
+
+//nolosetúdime
+function obtenerExperimento(dni) {
+	const url = "https://sheetdb.io/api/v1/de641i4213xkw/search?dni=" + dni;
+	fetch(url)
+		.then(response => response.json())
+		.then(data => {
+			const exp = data[0].idexperimento;
+			console.log(exp);
+			return exp;
+		})
+		.catch(error => console.error('Error:', error));
+}
+
+function obtenerDatosParaValidacion() {
+	return fetch('https://sheetdb.io/api/v1/de641i4213xkw', {
+		method: 'GET',
+		mode: 'cors',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+		.then(response => response.json())
+		.then(data => {
+			return data;  // Devolvemos los datos como array para que se puedan procesar en otra parte del código
+		})
+		.catch(error => {
+			console.error('Error al obtener los datos para validación:', error);
+		});
 }
 
 const validarFormulario = (e) => {
