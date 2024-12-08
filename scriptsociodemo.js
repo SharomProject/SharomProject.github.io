@@ -37,7 +37,7 @@ formulario.addEventListener('submit', (e) => {
 
 const redirect = (exp, dni) => {
 	localStorage.setItem('exp', exp);
-	//location.replace('https://localhost:7063/portalparacuestionarios.html');
+	location.replace('https://sharomproject.github.io/portalparacuestionarios');
 }
 
 const recuperarDatos = () => {
