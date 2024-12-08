@@ -1,9 +1,15 @@
 const formulario = document.getElementById('formulario');
 const inputs = document.querySelectorAll('formulario');
 
+// Obtener la raíz del proyecto
+const rootURL = `${window.location.protocol}//${window.location.host}/`;
+
+
 document.addEventListener('DOMContentLoaded', () => {
 	if (localStorage.getItem("dni") == null) {
-		location.replace('https://sharomproject.github.io//dniexiste.html');
+		// Redirigir a una página específica
+		const newPath = 'dniexiste.html';
+		location.replace(`${rootURL}${newPath}`);
 	} else {
 		const inputs = document.querySelectorAll('input');
 		inputs.forEach((input) => {
@@ -27,8 +33,12 @@ let campos = {
 
 formulario.addEventListener('submit', (e) => {
 	e.preventDefault();
+	console.log(localStorage.getItem('dni'));
+		console.log(dni.value);
 	if (campos['dni'] && campos['profesion']) {
+		
 		recuperarDatos();
+		
 	} else {
 		document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
 	}
@@ -37,7 +47,11 @@ formulario.addEventListener('submit', (e) => {
 
 const redirect = (exp, dni) => {
 	localStorage.setItem('exp', exp);
-	location.replace('https://sharomproject.github.io/portalparacuestionarios');
+	
+	// Redirigir a una página específica
+	const newPath = 'portalparacuestionarios.html';
+	window.location.href = `${rootURL}${newPath}`;
+
 }
 
 const recuperarDatos = () => {
@@ -68,29 +82,52 @@ const recuperarDatos = () => {
 		consentimiento: consentimiento
 	};
 
-	if (campos[dni] && campos[profesion]) {
-		obtenerDatosParaValidacion().then(datos => {
-			const dniExistente = datos.some(persona => persona.dni === dni);
-			if (dniExistente) {
-				const exp = obtenerExperimento(dni);
-				localStorage.setItem("exp", exp);
-				console.log(dni);
-				console.log(exp);
-				//evnair datos SheetBD
-
-			} else {
-				document.getElementById('formulario__mensaje-exito').classList.remove('mensaje-exito-activo');
-				document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
-				return;
-			}
-		});
+	if (campos['dni'] && campos['profesion']) {
+		console.log(dni);
+		console.log(localStorage.getItem('dni'));
+		if (dni===localStorage.getItem('dni')) {
+			const exp = obtenerExperimento(dni);
+			localStorage.setItem("exp", exp);
+			console.log(dni);
+			console.log(exp);
+			//evnair datos SheetBD
+			enviarDatos(formData);
+			
+		} else {
+			document.getElementById('formulario__mensaje-exito').classList.remove('mensaje-exito-activo');
+			document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
+			return;
+		}
 	}
 	
 
 	alert(formData);
 }
 
+function enviarDatos(formData) {
+	fetch('https://sheetdb.io/api/v1/de641i4213xkw?sheet=preguntas_sociodemografico', {
+	  method: 'POST',
+	  mode: 'cors',
+	  headers: {
+		'Content-Type': 'application/json'
+	  },
+	  body: JSON.stringify(formData)
+	})
+	  .then(response => response.json())
+	  .then(data => {
+		if (data.created === 1) {
+		  alert('Respuestas registradas correctamente.');
+		} else {
+		  alert('Error al enviar los datos');
+		}
+	  })
+	  .catch(error => {
+		console.error('Error:', error);
+	  });
+  }
+
 //nolosetúdime
+/*
 function obtenerExperimento(dni) {
 	const url = "https://sheetdb.io/api/v1/de641i4213xkw/search?dni=" + dni;
 	fetch(url)
@@ -101,24 +138,39 @@ function obtenerExperimento(dni) {
 			return exp;
 		})
 		.catch(error => console.error('Error:', error));
+}*/
+
+async function obtenerExperimento(dni) {
+	console.log(dni);
+	const url = "https://sheetdb.io/api/v1/de641i4213xkw/search?dni=" + dni;
+	try {
+		const response = await fetch(url);
+		
+		// Verificar si la respuesta es exitosa
+		if (!response.ok) {
+			throw new Error(`Error en la solicitud: ${response.status}`);
+		}
+		
+		const data = await response.json();
+		
+		// Verificar si hay datos
+		if (data.length === 0) {
+			console.warn("No se encontraron resultados para el DNI proporcionado.");
+			return null; // O devolver algún valor predeterminado
+		}
+
+		// Extraer el experimento
+		const exp = data[0].idexperimento;
+		console.log("Experimento encontrado:", exp);
+		return exp;
+
+	} catch (error) {
+		console.error("Error:", error.message);
+		return null; // Manejo de error
+	}
 }
 
-function obtenerDatosParaValidacion() {
-	return fetch('https://sheetdb.io/api/v1/de641i4213xkw', {
-		method: 'GET',
-		mode: 'cors',
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	})
-		.then(response => response.json())
-		.then(data => {
-			return data;  // Devolvemos los datos como array para que se puedan procesar en otra parte del código
-		})
-		.catch(error => {
-			console.error('Error al obtener los datos para validación:', error);
-		});
-}
+
 
 const validarFormulario = (e) => {
 	e.preventDefault();  // Asegúrate de que estás recibiendo el evento
@@ -151,6 +203,7 @@ const validarCampo = (expresion, input, campo) => {
 		document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
 		campos[campo] = true;
 		console.log('si');
+		
 	} else {
 		// Aplicar clases al contenedor y al input directamente
 		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
