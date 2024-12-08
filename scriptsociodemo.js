@@ -3,7 +3,7 @@ const inputs = document.querySelectorAll('formulario');
 
 document.addEventListener('DOMContentLoaded', () => {
 	if (localStorage.getItem("dni") == null) {
-		location.replace('https://localhost:7063/dniexiste.html');
+		location.replace('https://sharomproject.github.io//dniexiste.html');
 	} else {
 		const inputs = document.querySelectorAll('input');
 		inputs.forEach((input) => {
