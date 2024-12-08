@@ -10,7 +10,12 @@ formulario.addEventListener('submit', (e) => {
                 localStorage.setItem("dni", dni);
                 document.getElementById('formulario__mensaje-exito').classList.add('mensaje-exito-activo');
                 alert("DNI verificado correctamente. Se redirigirá a la ficha sociodemográfica.");
-                location.href= 'https://sharomproject.github.io/sociodemografico.html';
+                // Obtener la raíz del proyecto
+                const rootURL = `${window.location.protocol}//${window.location.host}/`;
+
+                // Redirigir a una página específica
+                const newPath = 'sociodemografico.html';
+                window.location.href = `${rootURL}${newPath}`;
             } else {
                 document.getElementById('formulario__mensaje-exito').classList.remove('mensaje-exito-activo');
                 document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
