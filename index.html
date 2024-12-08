@@ -1,112 +1,188 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Participantes -  Sharon Project</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario de Participantes - Sharon Project</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <!-- CSS que encontramos por internet, parece que es bacán -->
-    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="CSS/estilos.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://necolas.github.io/normalize.css/8.0.1/normalize.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="CSS/estilos.css" />
+  </head>
+  <body>
     <div class="container mt-5">
-        <h2 class="text-center">Formulario de Participantes</h2>
-        <form action="" id="formulario">
-            <!-- DNI -->
-            <div class="mb-3" id="grupo__dni">
-                <label for="dni" class="form-label">DNI</label>
-		<div class="formulario__grupo-input">
-                	<input type="text" class="form-control formulario__input" id="dni" placeholder="Ingrese su DNI" required>
-			<i class="formulario__validacion-estado fas fa-times-circle"></i>
-		</div>
-		<p class="formulario__input-error">El DNI debe tener 8 dígitos y solo puede contener numeros</p>
-            </div>
-            <!-- Nombres -->
-            <div class="mb-3" id="grupo__nombres">
-                <label for="nombres" class="form-label">Nombres</label>
-		<div class="formulario__grupo-input">
-	                <input type="text" class="form-control formulario__input" id="nombres" placeholder="Ingrese sus nombres" required>
-			<i class="formulario__validacion-estado fas fa-times-circle"></i>
-		</div>
-		<p class="formulario__input-error">Los nombres solo puede contener letras</p>
-            </div>
-            <!-- Apellidos -->
-            <div class="mb-3" id="grupo__apellidos">
-                <label for="apellidos" class="form-label">Apellidos</label>
-		<div class="formulario__grupo-input">
-	                <input type="text" class="form-control formulario__input" id="apellidos" placeholder="Ingrese sus apellidos" required>
-			<i class="formulario__validacion-estado fas fa-times-circle"></i>
-		</div>
-		<p class="formulario__input-error">Los apellidos solo puede contener letras</p>
-            </div>
-            <!-- Edad -->
-            <div class="mb-3" id="grupo__edad">
-                <label for="edad" class="form-label">Edad</label>
-		<div class="formulario__grupo-input">
-	                <input type="number" class="form-control formulario__input" id="edad" placeholder="Ingrese su edad" required>
-			<i class="formulario__validacion-estado fas fa-times-circle"></i>
-		</div>
-		<p class="formulario__input-error">La edad debe ser válida y mayor o igual a 20</p>
-            </div>
-            <!-- correo -->
-            <div class="mb-3" id="grupo__correo">
-                <label for="correo" class="form-label">Correo</label>
-		    <div class="formulario__grupo-input">
-	                <input type="text" class="form-control formulario__input" id="correo" placeholder="Ingrese su correo" required>
-			<i class="formulario__validacion-estado fas fa-times-circle"></i>
-		</div>
-		<p class="formulario__input-error">Debe ingresar un correo válido</p>
-            </div>
-		
-		<!-- Sexo (Radio buttons) -->
-            <div class="mb-3" id="grupo__sexo">
-                <label class="form-label">Sexo</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sexo" id="masculino" value="M" required>
-                    <label class="form-check-label" for="masculino">
-                        Masculino
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sexo" id="femenino" value="F" required>
-                    <label class="form-check-label" for="femenino">
-                        Femenino
-                    </label>
-                </div>
-		<p class="formulario__input-error">Por favor, seleccione una alternativa</p>
-            </div>
-            <!-- Distrito (Radio buttons) -->
-            <div class="mb-3" id="grupo__distrito">
-                <label class="form-label">Distrito</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="distrito" id="cajamarca" value="Cajamarca" required>
-                    <label class="form-check-label" for="cajamarca">
-                        Cajamarca
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="distrito" id="banos" value="Los Baños del Inca" required>
-                    <label class="form-check-label" for="banos">
-                        Los Baños del Inca
-                    </label>
-                </div>
-		<p class="formulario__input-error">Debe elegir un distrito</p>
-            </div>
-            <div class="formulario__mensaje" id="formulario__mensaje">
-		<p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
-	    </div>
-            <!-- Botón Enviar -->
-            <button type="submit" class="btn btn-success">Enviar</button>
-	    <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
-        </form>
+      <h2 class="text-center">Formulario de Participantes</h2>
+      <form action="" id="formulario">
+        <!-- DNI -->
+        <div class="mb-3" id="grupo__dni">
+          <label for="dni" class="form-label">DNI</label>
+          <div class="formulario__grupo-input">
+            <input
+              type="text"
+              class="form-control formulario__input"
+              id="dni"
+              placeholder="Ingrese su DNI"
+              required
+            />
+            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+          </div>
+          <p class="formulario__input-error">
+            El DNI debe tener 8 dígitos y solo puede contener numeros
+          </p>
+        </div>
+        <!-- Nombres -->
+        <div class="mb-3" id="grupo__nombres">
+          <label for="nombres" class="form-label">Nombres</label>
+          <div class="formulario__grupo-input">
+            <input
+              type="text"
+              class="form-control formulario__input"
+              id="nombres"
+              placeholder="Ingrese sus nombres"
+              required
+            />
+            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+          </div>
+          <p class="formulario__input-error">
+            Los nombres solo puede contener letras
+          </p>
+        </div>
+        <!-- Apellidos -->
+        <div class="mb-3" id="grupo__apellidos">
+          <label for="apellidos" class="form-label">Apellidos</label>
+          <div class="formulario__grupo-input">
+            <input
+              type="text"
+              class="form-control formulario__input"
+              id="apellidos"
+              placeholder="Ingrese sus apellidos"
+              required
+            />
+            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+          </div>
+          <p class="formulario__input-error">
+            Los apellidos solo puede contener letras
+          </p>
+        </div>
+        <!-- Edad -->
+        <div class="mb-3" id="grupo__edad">
+          <label for="edad" class="form-label">Edad</label>
+          <div class="formulario__grupo-input">
+            <input
+              type="number"
+              class="form-control formulario__input"
+              id="edad"
+              placeholder="Ingrese su edad"
+              required
+            />
+            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+          </div>
+          <p class="formulario__input-error">
+            La edad debe ser válida y mayor o igual a 20
+          </p>
+        </div>
+        <!-- correo -->
+        <div class="mb-3" id="grupo__correo">
+          <label for="correo" class="form-label">Correo</label>
+          <div class="formulario__grupo-input">
+            <input
+              type="text"
+              class="form-control formulario__input"
+              id="correo"
+              placeholder="Ingrese su correo"
+              required
+            />
+            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+          </div>
+          <p class="formulario__input-error">Debe ingresar un correo válido</p>
+        </div>
+
+        <!-- Sexo (Radio buttons) -->
+        <div class="mb-3" id="grupo__sexo">
+          <label class="form-label">Sexo</label>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="sexo"
+              id="masculino"
+              value="M"
+              required
+            />
+            <label class="form-check-label" for="masculino"> Masculino </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="sexo"
+              id="femenino"
+              value="F"
+              required
+            />
+            <label class="form-check-label" for="femenino"> Femenino </label>
+          </div>
+          <p class="formulario__input-error">
+            Por favor, seleccione una alternativa
+          </p>
+        </div>
+        <!-- Distrito (Radio buttons) -->
+        <div class="mb-3" id="grupo__distrito">
+          <label class="form-label">Distrito</label>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="distrito"
+              id="cajamarca"
+              value="Cajamarca"
+              required
+            />
+            <label class="form-check-label" for="cajamarca"> Cajamarca </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="distrito"
+              id="banos"
+              value="Los Baños del Inca"
+              required
+            />
+            <label class="form-check-label" for="banos">
+              Los Baños del Inca
+            </label>
+          </div>
+          <p class="formulario__input-error">Debe elegir un distrito</p>
+        </div>
+        <div class="formulario__mensaje" id="formulario__mensaje">
+          <p>
+            <i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor
+            rellena el formulario correctamente.
+          </p>
+        </div>
+        <!-- Botón Enviar -->
+        <button type="submit" class="btn btn-success">Enviar</button>
+        <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">
+          Formulario enviado exitosamente!
+        </p>
+      </form>
     </div>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- JavaScript para capturar los datos del formulario -->
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
