@@ -45,14 +45,6 @@ formulario.addEventListener('submit', (e) => {
  	
 });
 
-const redirect = (exp, dni) => {
-	localStorage.setItem('exp', exp);
-	
-	// Redirigir a una página específica
-	const newPath = 'portalparacuestionarios.html';
-	window.location.href = `${rootURL}${newPath}`;
-
-}
 
 const recuperarDatos = () => {
 
@@ -86,12 +78,12 @@ const recuperarDatos = () => {
 		console.log(dni);
 		console.log(localStorage.getItem('dni'));
 		if (dni===localStorage.getItem('dni')) {
-			const exp = obtenerExperimento(dni);
-			localStorage.setItem("exp", exp);
+			obtenerExperimento(dni);
+			
 			console.log(dni);
-			console.log(exp);
 			//evnair datos SheetBD
 			enviarDatos(formData);
+			
 			
 		} else {
 			document.getElementById('formulario__mensaje-exito').classList.remove('mensaje-exito-activo');
@@ -99,9 +91,7 @@ const recuperarDatos = () => {
 			return;
 		}
 	}
-	
 
-	alert(formData);
 }
 
 function enviarDatos(formData) {
@@ -116,7 +106,9 @@ function enviarDatos(formData) {
 	  .then(response => response.json())
 	  .then(data => {
 		if (data.created === 1) {
-		  alert('Respuestas registradas correctamente.');
+			alert('Respuestas registradas correctamente.');
+			const newPath = 'formulario.html';
+			window.location.href = `${rootURL}${newPath}`;
 		} else {
 		  alert('Error al enviar los datos');
 		}
@@ -162,6 +154,7 @@ async function obtenerExperimento(dni) {
 		// Extraer el experimento
 		const exp = data[0].idexperimento;
 		console.log("Experimento encontrado:", exp);
+		localStorage.setItem("exp", exp);
 		return exp;
 
 	} catch (error) {
