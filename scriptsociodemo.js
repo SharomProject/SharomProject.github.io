@@ -84,16 +84,14 @@ const recuperarDatos = () => {
 		console.log(localStorage.getItem('dni'));
 		if (dni===localStorage.getItem('dni')) {
 			obtenerExperimento(dni);
-			
 			verificarPrimeraVez(dni);			
-			
-		} else {
 			document.getElementById('formulario__mensaje-exito').classList.remove('mensaje-exito-activo');
 			document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
 			return;
+		} else {
+			alert("Verifique que el DNI ingresado esté escrito correctamente.");
 		}
 	}
-
 }
 
 function enviarDatos(formData) {

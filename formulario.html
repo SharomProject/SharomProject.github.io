@@ -87,6 +87,20 @@
           verificarPrimeraVez(localStorage.getItem("dni"));
         }
       });
+
+      function verificarPrimeraVez(dni) {
+        const url = "https://sheetdb.io/api/v1/de641i4213xkw/search?sheet=respuestas_experimentos&dni=" + dni;
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            if(data[0]!= null){
+              newPath= 'agradecimiento.html';
+              location.href(`${rootURL}${newPath}`);
+            }
+          })
+          .catch(error => console.error('Error:', error));
+      }
+
       // Obtener el experimento desde localStorage
       const idExperimento = localStorage.getItem("exp");
       let mensajeExp;
@@ -219,8 +233,13 @@
           .then((response) => response.json())
           .then((data) => {
             console.log("Formulario enviado exitosamente:", data);
+            localStorage.setItem("dni", null);
+            localStorage.setItem("exp",null);
+            console.log(localStorage.getItem("dni"), localStorage.getItem(exp));
             alert("¡Gracias por participar!");
             formulario.reset(); // Reiniciar el formulario
+            const newPath = 'agradecimiento.html';
+            window.location.href = `${rootURL}${newPath}`;
           })
           .catch((error) => {
             console.error("Error al enviar el formulario:", error);
