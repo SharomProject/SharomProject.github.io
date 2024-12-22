@@ -89,16 +89,18 @@
       });
 
       function verificarPrimeraVez(dni) {
-        const url = "https://sheetdb.io/api/v1/de641i4213xkw/search?sheet=respuestas_experimentos&dni=" + dni;
+        const url =
+          "https://sheetdb.io/api/v1/de641i4213xkw/search?sheet=respuestas_experimentos&dni=" +
+          dni;
         fetch(url)
-          .then(response => response.json())
-          .then(data => {
-            if(data[0]!= null){
-              newPath= 'agradecimiento.html';
+          .then((response) => response.json())
+          .then((data) => {
+            if (data[0] != null) {
+              newPath = "agradecimiento.html";
               location.href(`${rootURL}${newPath}`);
             }
           })
-          .catch(error => console.error('Error:', error));
+          .catch((error) => console.error("Error:", error));
       }
 
       // Obtener el experimento desde localStorage
@@ -151,7 +153,7 @@
           "shadow-sm"
         );
 
-        if (idExperimento === "R" && pregunta.imagen) {
+        if (idExperimento.charAt(0) === "R") {
           div.classList.add("pregunta-con-imagen");
           div.innerHTML = `
       <img src="${pregunta.imagen}" alt="Imagen relacionada">
@@ -190,7 +192,7 @@
         event.preventDefault(); // Evitar el envío por defecto del formulario
 
         // Recoger las respuestas del formulario
-        const respuestas = preguntas.map((pregunta) => {
+        const respuestas = preguntasSeleccionadas.map((pregunta) => {
           const seleccion = document.querySelector(
             `input[name="pregunta-${pregunta.id}"]:checked`
           );
@@ -234,11 +236,12 @@
           .then((data) => {
             console.log("Formulario enviado exitosamente:", data);
             localStorage.setItem("dni", null);
-            localStorage.setItem("exp",null);
-            console.log(localStorage.getItem("dni"), localStorage.getItem(exp));
+            localStorage.setItem("exp", null);
+            // console.log(localStorage.getItem("dni"), localStorage.getItem(exp));
             alert("¡Gracias por participar!");
             formulario.reset(); // Reiniciar el formulario
-            const newPath = 'agradecimiento.html';
+            const newPath = "agradecimiento.html";
+            const rootURL = `${window.location.protocol}//${window.location.host}/`;
             window.location.href = `${rootURL}${newPath}`;
           })
           .catch((error) => {
