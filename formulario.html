@@ -78,19 +78,15 @@
 
     <script src="preguntas.js"></script>
     <script>
-
-      document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener("DOMContentLoaded", () => {
         if (localStorage.getItem("dni") == null) {
           // Redirigir a una página específica
-          const newPath = 'dniexiste.html';
+          const newPath = "dniexiste.html";
           location.replace(`${rootURL}${newPath}`);
         } else {
-
           verificarPrimeraVez(localStorage.getItem("dni"));
-          
         }
       });
-
       // Obtener el experimento desde localStorage
       const idExperimento = localStorage.getItem("exp");
       let mensajeExp;
@@ -114,18 +110,23 @@
             "Responde las siguientes preguntas de manera rápida 😊<br><strong>RECUERDA:</strong> Esto será de manera anónima y “La integridad no se negocia”.";
           break;
         default:
-          mensajeExp =
-            "Error al cargar la página.";
+          mensajeExp = "Error al cargar la página.";
       }
 
       // Mostrar mensaje inicial
       document.getElementById("mensajeInicial").innerHTML = mensajeExp;
 
       // Cargar preguntas y generar formulario dinámicamente
+      // Obtener el contenedor donde se mostrarán las preguntas
       const contenedorPreguntas = document.getElementById(
         "contenedorPreguntas"
       );
-      preguntas.forEach((pregunta) => {
+
+      // Cargar las preguntas específicas según el caso
+      const preguntasSeleccionadas = preguntas[idExperimento.charAt(0)] || [];
+
+      // Mostrar las preguntas
+      preguntasSeleccionadas.forEach((pregunta) => {
         const div = document.createElement("div");
         div.classList.add(
           "mb-4",
@@ -136,11 +137,24 @@
           "shadow-sm"
         );
 
-        if (idExperimento.charAt(0) === "R") {
+        if (idExperimento === "R" && pregunta.imagen) {
           div.classList.add("pregunta-con-imagen");
           div.innerHTML = `
-    <img src="${pregunta.imagen}" alt="Imagen relacionada">
-    <div>
+      <img src="${pregunta.imagen}" alt="Imagen relacionada">
+      <div>
+        <p class="fw-bold">${pregunta.texto}</p>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="pregunta-${pregunta.id}" value="si" required>
+          <label class="form-check-label">Sí</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="pregunta-${pregunta.id}" value="no" required>
+          <label class="form-check-label">No</label>
+        </div>
+      </div>
+    `;
+        } else {
+          div.innerHTML = `
       <p class="fw-bold">${pregunta.texto}</p>
       <div class="form-check">
         <input class="form-check-input" type="radio" name="pregunta-${pregunta.id}" value="si" required>
@@ -150,20 +164,7 @@
         <input class="form-check-input" type="radio" name="pregunta-${pregunta.id}" value="no" required>
         <label class="form-check-label">No</label>
       </div>
-    </div>
-  `;
-        } else {
-          div.innerHTML = `
-    <p class="fw-bold">${pregunta.texto}</p>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="pregunta-${pregunta.id}" value="si" required>
-      <label class="form-check-label">Sí</label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="pregunta-${pregunta.id}" value="no" required>
-      <label class="form-check-label">No</label>
-    </div>
-  `;
+    `;
         }
 
         contenedorPreguntas.appendChild(div);
@@ -188,10 +189,10 @@
         // Mostrar las respuestas en la consola (simulación de envío)
         console.log("Respuestas recopiladas:", respuestas);
         console.log("experimento:", idExperimento);
-        
+
         const formData = {
           idexperimento: idExperimento,
-          dnientrevistado: localStorage.getItem('dni'),
+          dnientrevistado: localStorage.getItem("dni"),
           r1: respuestas[0].respuesta,
           r2: respuestas[1].respuesta,
           r3: respuestas[2].respuesta,
@@ -202,49 +203,30 @@
           r8: respuestas[7].respuesta,
           r9: respuestas[8].respuesta,
           r10: respuestas[9].respuesta,
-        }
+        };
 
         // Lógica para enviar datos a Google Sheets (preparado, no implementado)
-        fetch("https://sheetdb.io/api/v1/de641i4213xkw?sheet=respuestas_experimentos", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        })
+        fetch(
+          "https://sheetdb.io/api/v1/de641i4213xkw?sheet=respuestas_experimentos",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        )
           .then((response) => response.json())
           .then((data) => {
+            console.log("Formulario enviado exitosamente:", data);
+            alert("¡Gracias por participar!");
             formulario.reset(); // Reiniciar el formulario
-            const path2= 'agradecimiento.html';
-            location.replace(`${rootURL}${path2}`);
-            /*console.log("Formulario enviado exitosamente:", data);
-            alert("¡Gracias por participar!");*/
-            
           })
           .catch((error) => {
             console.error("Error al enviar el formulario:", error);
             alert("Hubo un error al enviar el formulario. Intenta nuevamente.");
           });
       });
-
-      function verificarPrimeraVez(dni) {
-        const url = "https://sheetdb.io/api/v1/de641i4213xkw/search?sheet=preguntas_sociodemografico&dni=" + dni;
-        fetch(url)
-          .then(response => response.json())
-          .then(data => {
-            if(data[0]!= null){
-              const path2= 'agradecimiento.html';
-              location.replace(`${rootURL}${path2}`);
-            } else{
-              const inputs = document.querySelectorAll('input');
-              inputs.forEach((input) => {
-                input.addEventListener('keyup', validarFormulario);
-                input.addEventListener('blur', validarFormulario);
-              });
-            }
-          })
-          .catch(error => console.error('Error:', error));
-      }
     </script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
