@@ -4,11 +4,19 @@ const inputs = document.querySelectorAll('formulario');
 // Obtener la raíz del proyecto
 const rootURL = `${window.location.protocol}//${window.location.host}/`;
 
+localStorage.setItem("bandera", 0);
+
+let newPath = 'dniexiste.html';
 
 document.addEventListener('DOMContentLoaded', () => {
-	if (localStorage.getItem("dni") == null) {
+
+	if(localStorage.getItem("bandera")===0){
+		localStorage.setItem("bandera",1);
+		newPath = 'dniexiste.html';
+		location.replace(`${rootURL}${newPath}`);
+	} else if (localStorage.getItem("dni") == null) {
 		// Redirigir a una página específica
-		const newPath = 'dniexiste.html';
+		newPath = 'dniexiste.html';
 		location.replace(`${rootURL}${newPath}`);
 	} else {
 		const inputs = document.querySelectorAll('input');
@@ -33,12 +41,9 @@ let campos = {
 
 formulario.addEventListener('submit', (e) => {
 	e.preventDefault();
-	console.log(localStorage.getItem('dni'));
-		console.log(dni.value);
-	if (campos['dni'] && campos['profesion']) {
-		
+	
+	if (campos['dni'] && campos['profesion']) {	
 		recuperarDatos();
-		
 	} else {
 		document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
 	}
@@ -80,10 +85,7 @@ const recuperarDatos = () => {
 		if (dni===localStorage.getItem('dni')) {
 			obtenerExperimento(dni);
 			
-			console.log(dni);
-			//evnair datos SheetBD
-			enviarDatos(formData);
-			
+			verificarPrimeraVez(dni);			
 			
 		} else {
 			document.getElementById('formulario__mensaje-exito').classList.remove('mensaje-exito-activo');
@@ -107,7 +109,7 @@ function enviarDatos(formData) {
 	  .then(data => {
 		if (data.created === 1) {
 			alert('Respuestas registradas correctamente.');
-			const newPath = 'formulario.html';
+			newPath = 'formulario.html';
 			window.location.href = `${rootURL}${newPath}`;
 		} else {
 		  alert('Error al enviar los datos');
@@ -119,18 +121,22 @@ function enviarDatos(formData) {
   }
 
 //nolosetúdime
-/*
-function obtenerExperimento(dni) {
-	const url = "https://sheetdb.io/api/v1/de641i4213xkw/search?dni=" + dni;
+
+function verificarPrimeraVez(dni) {
+	const url = "https://sheetdb.io/api/v1/de641i4213xkw/search?sheet=preguntas_sociodemografico&dni=" + dni;
 	fetch(url)
 		.then(response => response.json())
 		.then(data => {
-			const exp = data[0].idexperimento;
-			console.log(exp);
-			return exp;
+			if(data[0]!= null){
+				alert("Ya ha llenado la ficha sociodemográfica, se lo dirigirá al formulario, si ya lo ha llenado, se le agradecerá por su participación.")
+				newPath= 'formulario.html';
+				location.replace(`${rootURL}${newPath}`);
+			} else {
+				enviarDatos(formData);
+			}
 		})
 		.catch(error => console.error('Error:', error));
-}*/
+}
 
 async function obtenerExperimento(dni) {
 	console.log(dni);
