@@ -1,5 +1,6 @@
 * {
 	box-sizing: border-box;
+	padding: 5px;
 }
 
 body {
@@ -176,7 +177,19 @@ main {
 	opacity: 1;
 }
 
-
+.spinner {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	border: 2px solid transparent;
+	border-top: 2px solid #fff;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 
 /* ----- -----  Mediaqueries ----- ----- */
 @media screen and (max-width: 800px) {
@@ -192,5 +205,15 @@ main {
 
 	.formulario__btn {
 		width: 100%;
+	}
+}
+
+/* Animación del spinner */
+@keyframes spin {
+	from {
+		transform: translate(-50%, -50%) rotate(0deg);
+	}
+	to {
+		transform: translate(-50%, -50%) rotate(360deg);
 	}
 }
