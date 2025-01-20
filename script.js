@@ -1,16 +1,19 @@
 const formulario = document.getElementById("formulario");
 const inputs = document.querySelectorAll("formulario");
+const boton = document.getElementById("btn_enviar");
 
 const recuperarDatos = () => {
+ 
+  boton.disabled = true;
+  boton.innerHTML = '<div class="spinner"></div> Cargando...';
+
   const dni = document.getElementById("dni").value;
   const nombres = document.getElementById("nombres").value;
   const apellidos = document.getElementById("apellidos").value;
   const edad = document.getElementById("edad").value;
   const correo = document.getElementById("correo").value;
   const sexo = document.querySelector('input[name="sexo"]:checked').value;
-  const distrito = document.querySelector(
-    'input[name="distrito"]:checked'
-  ).value;
+  const distrito = document.querySelector('input[name="distrito"]:checked').value;
   console.log(document.querySelector('input[name="sexo"]:checked').value);
 
   const formData = {
@@ -28,20 +31,25 @@ const recuperarDatos = () => {
     const dniExistente = datos.some((persona) => persona.dni === formData.dni);
     if (dniExistente) {
       alert("Ya se ha registrado a este DNI, pruebe con otro.");
+      boton.disabled = false;
+      boton.innerHTML = 'Enviar';
       return;
     }
 
     // Paso 2: Validar cuotas de edad y género
     const esValidoCuotas = validarCuotas(
-      formData.edad,
-      formData.sexo,
-      formData.distrito,
-      datos
-    );
+                            formData.edad,
+                            formData.sexo,
+                            formData.distrito,
+                            datos
+                          );
+
     if (!esValidoCuotas) {
       alert(
         "El límite de personas en este rango de edad y género ha sido alcanzado."
       );
+      boton.disabled = false;
+      boton.innerHTML = 'Enviar';
       return;
     }
 
@@ -65,8 +73,6 @@ const recuperarDatos = () => {
       "SCC6",
       "SCC7",
       "SCC8",
-      "SCBI1",
-      "SCBI2",
       "BCC1",
       "BCC2",
       "BCC3",
@@ -75,8 +81,6 @@ const recuperarDatos = () => {
       "BCC6",
       "BCC7",
       "BCC8",
-      "BCBI1",
-      "BCBI2",
       "PCC1",
       "PCC2",
       "PCC3",
@@ -85,8 +89,6 @@ const recuperarDatos = () => {
       "PCC6",
       "PCC7",
       "PCC8",
-      "PCBI1",
-      "PCBI2",
       "RCC1",
       "RCC2",
       "RCC3",
@@ -95,6 +97,19 @@ const recuperarDatos = () => {
       "RCC6",
       "RCC7",
       "RCC8",
+    ];
+
+    const experimentos = [
+      
+      "SCBI1",
+      "SCBI2",
+      
+      "BCBI1",
+      "BCBI2",
+      
+      "PCBI1",
+      "PCBI2",
+      
       "RCBI1",
       "RCBI2",
     ];
@@ -148,6 +163,7 @@ const recuperarDatos = () => {
 
     if (fechasDisponibles.length === 0) {
       alert("No hay fechas disponibles para asignar.");
+      boton.innerHTML = 'Enviar';
       return;
     }
 
@@ -186,8 +202,12 @@ function enviarDatos(formData) {
     .then((data) => {
       if (data.created === 1) {
         alert("Datos enviados correctamente");
+        boton.disabled = false;
+        boton.innerHTML = 'Enviar';
       } else {
         alert("Error al enviar los datos");
+        boton.disabled = false;
+        boton.innerHTML = 'Enviar';
       }
     })
     .catch((error) => {
@@ -261,66 +281,16 @@ function identificarLimiteMasculino(edad, distrito) {
     { distrito: "Cajamarca", edad_min: 55, edad_max: 59, total_masculino: 8 },
     { distrito: "Cajamarca", edad_min: 60, edad_max: 64, total_masculino: 7 },
     { distrito: "Cajamarca", edad_min: 65, edad_max: 100, total_masculino: 15 },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 20,
-      edad_max: 24,
-      total_masculino: 6,
-    },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 25,
-      edad_max: 29,
-      total_masculino: 6,
-    },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 30,
-      edad_max: 34,
-      total_masculino: 6,
-    },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 35,
-      edad_max: 39,
-      total_masculino: 5,
-    },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 40,
-      edad_max: 44,
-      total_masculino: 4,
-    },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 45,
-      edad_max: 49,
-      total_masculino: 3,
-    },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 50,
-      edad_max: 54,
-      total_masculino: 2,
-    },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 55,
-      edad_max: 59,
-      total_masculino: 2,
-    },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 60,
-      edad_max: 64,
-      total_masculino: 2,
-    },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 65,
-      edad_max: 100,
-      total_masculino: 4,
-    },
+    { distrito: "Los Baños del Inca", edad_min: 20, edad_max: 24, total_masculino: 6},
+    { distrito: "Los Baños del Inca", edad_min: 25, edad_max: 29, total_masculino: 6},
+    { distrito: "Los Baños del Inca", edad_min: 30, edad_max: 34, total_masculino: 6},
+    { distrito: "Los Baños del Inca", edad_min: 35, edad_max: 39, total_masculino: 5},
+    { distrito: "Los Baños del Inca", edad_min: 40, edad_max: 44, total_masculino: 4},
+    { distrito: "Los Baños del Inca", edad_min: 45, edad_max: 49, total_masculino: 3},
+    { distrito: "Los Baños del Inca", edad_min: 50, edad_max: 54, total_masculino: 2},
+    { distrito: "Los Baños del Inca", edad_min: 55, edad_max: 59, total_masculino: 2},
+    { distrito: "Los Baños del Inca", edad_min: 60, edad_max: 64, total_masculino: 2},
+    { distrito: "Los Baños del Inca", edad_min: 65, edad_max: 100, total_masculino: 4}
   ];
 
   const rangoEncontrado = rangos.find((rango) => {
@@ -347,66 +317,16 @@ function identificarLimiteFemenino(edad, distrito) {
     { distrito: "Cajamarca", edad_min: 55, edad_max: 59, total_femenino: 9 },
     { distrito: "Cajamarca", edad_min: 60, edad_max: 64, total_femenino: 7 },
     { distrito: "Cajamarca", edad_min: 65, edad_max: 100, total_femenino: 17 },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 20,
-      edad_max: 24,
-      total_femenino: 6,
-    },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 25,
-      edad_max: 29,
-      total_femenino: 6,
-    },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 30,
-      edad_max: 34,
-      total_femenino: 6,
-    },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 35,
-      edad_max: 39,
-      total_femenino: 5,
-    },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 40,
-      edad_max: 44,
-      total_femenino: 4,
-    },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 45,
-      edad_max: 49,
-      total_femenino: 3,
-    },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 50,
-      edad_max: 54,
-      total_femenino: 3,
-    },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 55,
-      edad_max: 59,
-      total_femenino: 2,
-    },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 60,
-      edad_max: 64,
-      total_femenino: 2,
-    },
-    {
-      distrito: "Los Baños del Inca",
-      edad_min: 65,
-      edad_max: 100,
-      total_femenino: 4,
-    },
+    { distrito: "Los Baños del Inca", edad_min: 20, edad_max: 24, total_femenino: 6},
+    { distrito: "Los Baños del Inca", edad_min: 25, edad_max: 29, total_femenino: 6},
+    { distrito: "Los Baños del Inca", edad_min: 30, edad_max: 34, total_femenino: 6},
+    { distrito: "Los Baños del Inca", edad_min: 35, edad_max: 39, total_femenino: 5},
+    { distrito: "Los Baños del Inca", edad_min: 40, edad_max: 44, total_femenino: 4},
+    { distrito: "Los Baños del Inca", edad_min: 45, edad_max: 49, total_femenino: 3},
+    { distrito: "Los Baños del Inca", edad_min: 50, edad_max: 54, total_femenino: 3},
+    { distrito: "Los Baños del Inca", edad_min: 55, edad_max: 59, total_femenino: 2},
+    { distrito: "Los Baños del Inca", edad_min: 60, edad_max: 64, total_femenino: 2},
+    { distrito: "Los Baños del Inca", edad_min: 65, edad_max: 100, total_femenino: 4},
   ];
 
   const rangoEncontrado = rangos.find((rango) => {
