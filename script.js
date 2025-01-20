@@ -99,21 +99,6 @@ const recuperarDatos = () => {
       "RCC8",
     ];
 
-    const experimentos = [
-      
-      "SCBI1",
-      "SCBI2",
-      
-      "BCBI1",
-      "BCBI2",
-      
-      "PCBI1",
-      "PCBI2",
-      
-      "RCBI1",
-      "RCBI2",
-    ];
-
     // Filtrar experimentos según el distrito
     const experimentosFiltrados = experimentos.filter((experimento) => {
       if (distrito === "Cajamarca") {
