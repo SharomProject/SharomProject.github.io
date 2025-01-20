@@ -45,7 +45,7 @@ const recuperarDatos = () => {
       return;
     }
 
-    // Paso 3: Contar cuantos experimentos hay asignados para poder asignar uno válido
+    // Paso 3: Contar cuántos experimentos hay asignados
     const conteo = {};
 
     datos.forEach((persona) => {
@@ -55,6 +55,7 @@ const recuperarDatos = () => {
       }
     });
 
+    // Lista de experimentos
     const experimentos = [
       "SCC1",
       "SCC2",
@@ -98,21 +99,35 @@ const recuperarDatos = () => {
       "RCBI2",
     ];
 
-    // Filtrar experimentos que tienen menos de 10 asignaciones
-    const experimentosDisponibles = experimentos.filter((experimento) => {
-      return (conteo[experimento] || 0) < 10; // Si no está en el conteo, tiene 0 asignaciones
+    // Filtrar experimentos según el distrito
+    const experimentosFiltrados = experimentos.filter((experimento) => {
+      if (distrito === "Cajamarca") {
+        return /C\d+$/.test(experimento); // Solo experimentos terminados en "C<number>"
+      } else if (distrito === "Los Baños del Inca") {
+        return /BI\d+$/.test(experimento); // Solo experimentos terminados en "BI<number>"
+      }
+      return false; // Si no coincide con ninguno, no se considera
     });
 
+    // Filtrar experimentos con menos de 10 asignaciones
+    const experimentosDisponibles = experimentosFiltrados.filter(
+      (experimento) => {
+        return (conteo[experimento] || 0) < 10; // Si no está en el conteo, tiene 0 asignaciones
+      }
+    );
+
     if (experimentosDisponibles.length === 0) {
-      alert("No hay experimentos disponibles para asignar.");
+      alert("No hay experimentos disponibles para asignar en este distrito.");
       return;
     }
 
-    // Seleccionar uno de los experimentos disponibles de manera aleatoria
+    // Seleccionar un experimento disponible de manera aleatoria
     const experimentoAleatorio =
       experimentosDisponibles[
         Math.floor(Math.random() * experimentosDisponibles.length)
       ];
+
+    console.log("Experimento asignado:", experimentoAleatorio);
 
     // Paso 4: Contar cuantas fechas hay asignadas para poder asignar una válida
     const conteoFechas = {};
