@@ -94,6 +94,8 @@ const recuperarDatos = () => {
 
     if (experimentosDisponibles.length === 0) {
       alert("No hay experimentos disponibles para asignar en este distrito.");
+      boton.disabled = false;
+      boton.innerHTML = 'Enviar';
       return;
     }
 
