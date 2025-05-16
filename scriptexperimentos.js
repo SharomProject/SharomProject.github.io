@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function verificarPrimeraVez(dni) {
     const url =
-      "https://sheetdb.io/api/v1/de641i4213xkw/search?sheet=respuestas_experimentos&dnientrevistado=" +
+      "https://sheetdb.io/api/v1/zd3x40ly409hw/search?sheet=respuestas_experimentos&dnientrevistado=" +
       dni;
     fetch(url)
       .then((response) => response.json())
@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Lógica para enviar datos a Google Sheets (preparado, no implementado)
     fetch(
-      "https://sheetdb.io/api/v1/de641i4213xkw?sheet=respuestas_experimentos",
+      "https://sheetdb.io/api/v1/zd3x40ly409hw?sheet=respuestas_experimentos",
       {
         method: "POST",
         headers: {
