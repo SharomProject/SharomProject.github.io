@@ -153,7 +153,7 @@ const recuperarDatos = () => {
 
 //método para enviar datos, una vez se haya validado todo
 function enviarDatos(formData) {
-  fetch("https://sheetdb.io/api/v1/de641i4213xkw", {
+  fetch("https://sheetdb.io/api/v1/zd3x40ly409hw", {
     method: "POST",
     mode: "cors",
     headers: {
@@ -180,7 +180,7 @@ function enviarDatos(formData) {
 
 // Obtener todos los datos de la hoja (o una búsqueda específica) para validar antes de enviar
 function obtenerDatosParaValidacion() {
-  return fetch("https://sheetdb.io/api/v1/de641i4213xkw", {
+  return fetch("https://sheetdb.io/api/v1/zd3x40ly409hw", {
     method: "GET",
     mode: "cors",
     headers: {

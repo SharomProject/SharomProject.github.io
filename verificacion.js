@@ -31,7 +31,7 @@ formulario.addEventListener('submit', (e) => {
 
 
 function obtenerDatosParaValidacion() {
-	return fetch('https://sheetdb.io/api/v1/de641i4213xkw', {
+	return fetch('https://sheetdb.io/api/v1/zd3x40ly409hw', {
 		method: 'GET',
 		mode: 'cors',
 		headers: {
