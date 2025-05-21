@@ -11,7 +11,6 @@ const recuperarDatos = () => {
   const nombres = document.getElementById("nombres").value;
   const apellidos = document.getElementById("apellidos").value;
   const edad = document.getElementById("edad").value;
-  const correo = document.getElementById("correo").value;
   const sexo = document.querySelector('input[name="sexo"]:checked').value;
   const distrito = document.querySelector('input[name="distrito"]:checked').value;
   console.log(document.querySelector('input[name="sexo"]:checked').value);
@@ -21,7 +20,7 @@ const recuperarDatos = () => {
     nombres: nombres,
     apellidos: apellidos,
     edad: edad,
-    correo: correo,
+    correo: "nomorecorreos@gmail.com",
     sexo: sexo,
     distrito: distrito,
   };
@@ -139,7 +138,7 @@ const recuperarDatos = () => {
       nombres: nombres,
       apellidos: apellidos,
       edad: edad,
-      correo: correo,
+      correo: "nomorecorreos@gmail.com",
       sexo: sexo,
       distrito: distrito,
       idexperimento: experimentoAleatorio,
@@ -167,6 +166,13 @@ function enviarDatos(formData) {
         alert("Datos enviados correctamente");
         boton.disabled = false;
         boton.innerHTML = 'Enviar';
+        localStorage.setItem("dni", formData.dni);
+        // Obtener la raíz del proyecto
+        const rootURL = `${window.location.protocol}//${window.location.host}/`;
+
+        // Redirigir a una página específica
+        const newPath = 'sociodemografico.html';
+        window.location.href = `${rootURL}${newPath}`;
       } else {
         alert("Error al enviar los datos");
         boton.disabled = false;
@@ -337,7 +343,7 @@ let campos = {
   nombres: false,
   apellidos: false,
   edad: false,
-  correo: false,
+  correo: true,
   distrito: false,
 };
 
@@ -350,9 +356,6 @@ const validarFormulario = (e) => {
       break;
     case "apellidos":
       validarCampo(expresiones.apellidos, e.target, "apellidos");
-      break;
-    case "correo":
-      validarCampo(expresiones.correo, e.target, "correo");
       break;
     case "dni":
       validarCampo(expresiones.dni, e.target, "dni");

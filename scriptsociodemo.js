@@ -9,11 +9,7 @@ localStorage.setItem("bandera", 0);
 let newPath = "dniexiste.html";
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (localStorage.getItem("bandera") === 0) {
-    localStorage.setItem("bandera", 1);
-    newPath = "dniexiste.html";
-    location.replace(`${rootURL}${newPath}`);
-  } else if (localStorage.getItem("dni") == null) {
+  if (localStorage.getItem("dni") == null) {
     // Redirigir a una página específica
     newPath = "dniexiste.html";
     location.replace(`${rootURL}${newPath}`);
