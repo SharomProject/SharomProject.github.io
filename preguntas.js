@@ -64,15 +64,15 @@ const preguntas = {
     },
     {
       id: 6,
-      texto: "Usted y otros tres amigos están llevando un curso de especialización/capacitación el cual se certifica con la aprobación de un examen. ¿Ofrecería dinero para cambiar el resultado de la evaluación?"
+      texto: "Usted y otros tres amigos están llevando un curso de especialización/capacitación el cual se certifica con la aprobación de un examen. Lamentablemente, todos han desaprobado dicha evaluación, que es un requisito en su centro de labores, sus amigos le dicen que ellos harán una colecta de dinero para pagar por la aprobación ya que uno de ellos hizo algo similar en un examen anterior, de esta manera todos se beneficiarán con la aprobación ¿ofrecería dinero para cambiar el resultado de la evaluación?"
     },
     {
       id: 7,
-      texto: "Usted ha sido penalizado con una multa por la municipalidad donde vive por haber cometido una infracción. ¿Usaría su influencia para resolver este inconveniente?"
+      texto: "Usted ha sido penalizado con una multa por la municipalidad donde vive por haber cometido una infracción. En una reunión un familiar le presenta a la autoridad a cargo de dicha área quién le comenta por haberle caído bien podría ayudarlo a resolver dicha inconveniente, ¿usaría aceptaría esta influencia para resolver este inconveniente? "
     },
     {
       id: 8,
-      texto: "Usted está muy apurado por llegar a su destino, y le toca cruzar un semáforo el cual está con la luz roja; sin embargo, en el sentido del color verde no se ven carros ni personas cruzar. En su mismo sentido llegan otras dos personas que al percatarse de la situación cruzan en luz roja ¿usted cruzaría el semáforo tras de ellos?"
+      texto: "Usted está muy apurado por llegar a su destino, y le toca cruzar un semáforo el cual está con la luz roja; sin embargo, en el sentido del color verde no se ven carros ni personas cruzar. En su mismo sentido llegan otras dos personas que la percatarse de la situación cruzan en luz roja ¿usted cruzaría el semáforo tras de ellos?"
     },
     {
       id: 9,
@@ -80,7 +80,7 @@ const preguntas = {
     },
     {
       id: 10,
-      texto: "Usted tiene un amigo de la infancia cuyo estilo de vida es bastante ostentoso. Siempre lo invita a salir a su casa, además de salir a diferentes actividades de entretenimiento; por lo general, usted nunca se preocupa de la cuenta cuando sale con este amigo. Existen rumores de que sus ingresos provienen de actividades ilegales. Usted ha tenido oportunidad de conocer personas extrañas como parte de esta amistad. De improviso, la policía ha realizado un operativo para aprender a su amigo y le ha solicitado testificar a usted en este caso, ¿usted aceptaría?"
+      texto: "Usted tiene un amigo de la infancia cuyo estilo de vida es bastante ostentoso. Siempre lo invita a salir a su casa, además de salir a diferentes actividades de entretenimiento; por lo general, usted nunca se preocupa de la cuenta cuando sale con este amigo. Existen rumores de que sus ingresos provienen de actividades ilegales. Usted ha tenido oportunidad de conocer personas extrañas como parte de esta amistad. De improviso, la policía ha realizado un operativo para aprender a su amigo y le ha solicitado testificar a usted en este caso, ¿usted aceptaría? "
     }
   ],
   P: [
@@ -128,7 +128,7 @@ const preguntas = {
   R: [
     {
       id: 1,
-      texto: "Usted se encuentra apurado para llegar a un evento o reunión comprometida y no se percata que ha cometido una infracción de tránsito. Un policía lo detiene para hacerle ver su infracción y le da entender que lo puede dejar avanzar si es que le da una suma de dinero, ¿usted aceptaría?",
+      texto: "Usted se encuentra apurado para llegar a un evento o reunión comprometida y no se percata que ha cometido una infracción de tránsito. Un policía lo detiene para hacerle ver su infracción y le da entender que lo puede dejar avanzar si es que le da una suma de dinero, ¿usted aceptaría? ",
       imagen: "./images/Pregunta1.jpg"
     },
     {
@@ -148,7 +148,7 @@ const preguntas = {
     },
     {
       id: 5,
-      texto: "Usted se encuentra en la cola para el ingreso a una actividad de entretenimiento que atrae a mucho público. Se percata que hay grupo de conocidos encabezando la cola de ingreso. ¿usted se acercaría a saludarlos con el propósito de saltarse la cola?",
+      texto: "Usted se encuentra en la cola para el ingreso a una actividad de entretenimiento que atrae a mucho público. Se percata que hay grupo de conocidos encabezando la cola de ingreso. ¿Usted se acercaría a saludarlos con el propósito de saltarse la cola?",
       imagen: "./images/Pregunta5.png"
     },
     {
@@ -168,7 +168,7 @@ const preguntas = {
     },
     {
       id: 9,
-      texto: "Usted se encuentra en una combi y viene hablando por el teléfono, se distrae y se pasa del paradero autorizado donde debió bajar. Otra persona en la combi se percata de lo mismo y presiona al conductor para que pare en un lugar indebido ¿usted haría presión adicional para obligar a la parada?",
+      texto: "Usted se encuentra en una combi y viene hablando por el teléfono, se distrae y se pasa del paradero autorizado donde debió bajar, ¿usted presionaría al conductor de la combi para que lo deje bajar en un lugar indebido?",
       imagen: "./images/Pregunta9.png"
     },
     {
