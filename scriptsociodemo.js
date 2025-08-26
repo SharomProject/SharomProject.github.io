@@ -103,7 +103,7 @@ const recuperarDatos = () => {
 
 function enviarDatos(formData) {
   fetch(
-    "https://sheetdb.io/api/v1/zd3x40ly409hw?sheet=preguntas_sociodemografico",
+    "https://sheetdb.io/api/v1/enc3piqmqybm2?sheet=preguntas_sociodemografico",
     {
       method: "POST",
       mode: "cors",
@@ -132,7 +132,7 @@ function enviarDatos(formData) {
 
 function verificarPrimeraVez(dni, formData) {
   const url =
-    "https://sheetdb.io/api/v1/zd3x40ly409hw/search?sheet=preguntas_sociodemografico&dni=" +
+    "https://sheetdb.io/api/v1/enc3piqmqybm2/search?sheet=preguntas_sociodemografico&dni=" +
     dni;
   fetch(url)
     .then((response) => response.json())
@@ -152,7 +152,7 @@ function verificarPrimeraVez(dni, formData) {
 
 async function obtenerExperimento(dni) {
   console.log(dni);
-  const url = "https://sheetdb.io/api/v1/zd3x40ly409hw/search?dni=" + dni;
+  const url = "https://sheetdb.io/api/v1/enc3piqmqybm2/search?dni=" + dni;
   try {
     const response = await fetch(url);
 
