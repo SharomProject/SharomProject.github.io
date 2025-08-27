@@ -103,7 +103,7 @@ const recuperarDatos = () => {
 
 function enviarDatos(formData) {
   fetch(
-    "https://sheetdb.io/api/v1/enc3piqmqybm2?sheet=preguntas_sociodemografico",
+    "https://sheetdb.io/api/v1/fk99p94fx65ni?sheet=preguntas_sociodemografico",
     {
       method: "POST",
       mode: "cors",
@@ -128,11 +128,9 @@ function enviarDatos(formData) {
     });
 }
 
-//nolosetúdime
-
 function verificarPrimeraVez(dni, formData) {
   const url =
-    "https://sheetdb.io/api/v1/enc3piqmqybm2/search?sheet=preguntas_sociodemografico&dni=" +
+    "https://sheetdb.io/api/v1/fk99p94fx65ni/search?sheet=preguntas_sociodemografico&dni=" +
     dni;
   fetch(url)
     .then((response) => response.json())
@@ -151,8 +149,16 @@ function verificarPrimeraVez(dni, formData) {
 }
 
 async function obtenerExperimento(dni) {
+  
+  const exp = localStorage.getItem("experimentoasignado");
+  if(exp!=null){
+    console.log("Experimento obtenido de localstorage:", exp);
+    localStorage.setItem("exp", exp);
+    return exp;
+  }
+
   console.log(dni);
-  const url = "https://sheetdb.io/api/v1/enc3piqmqybm2/search?dni=" + dni;
+  const url = "https://sheetdb.io/api/v1/fk99p94fx65ni/search?dni=" + dni;
   try {
     const response = await fetch(url);
 

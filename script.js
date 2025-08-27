@@ -105,6 +105,7 @@ const recuperarDatos = () => {
       ];
 
     console.log("Experimento asignado:", experimentoAleatorio);
+    localStorage.setItem("experimentoasignado", experimentoAleatorio);
 
     // Paso 4: Contar cuantas fechas hay asignadas para poder asignar una válida
     const conteoFechas = {};
@@ -152,7 +153,7 @@ const recuperarDatos = () => {
 
 //método para enviar datos, una vez se haya validado todo
 function enviarDatos(formData) {
-  fetch("https://sheetdb.io/api/v1/enc3piqmqybm2", {
+  fetch("https://sheetdb.io/api/v1/fk99p94fx65ni", {
     method: "POST",
     mode: "cors",
     headers: {
@@ -186,7 +187,7 @@ function enviarDatos(formData) {
 
 // Obtener todos los datos de la hoja (o una búsqueda específica) para validar antes de enviar
 function obtenerDatosParaValidacion() {
-  return fetch("https://sheetdb.io/api/v1/enc3piqmqybm2", {
+  return fetch("https://sheetdb.io/api/v1/fk99p94fx65ni", {
     method: "GET",
     mode: "cors",
     headers: {

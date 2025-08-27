@@ -6,29 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
       // Redirigir a una página específica
       const newPath = "dniexiste.html";
       location.replace(`${rootURL}${newPath}`);
-    } else {
-        verificarPrimeraVez(localStorage.getItem("dni"));
     }
   });
 
-  async function verificarPrimeraVez(dni) {
-    const url =
-      "https://sheetdb.io/api/v1/enc3piqmqybm2/search?sheet=respuestas_experimentos&dnientrevistado=" +
-      dni;
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data[0] != null) {
-            console.log("nosadplasdas");
-            newPath = "agradecimiento.html";
-            location.href=`${rootURL}${newPath}`;
-            return true;
-        }
-        console.log("si3");
-        return false;
-      })
-      .catch((error) => console.error("Error:", error));
-  }
 
   // Obtener el experimento desde localStorage
   const idExperimento = localStorage.getItem("exp");
@@ -148,9 +128,9 @@ document.addEventListener("DOMContentLoaded", () => {
       r10: respuestas[9].respuesta,
     };
 
-    // Lógica para enviar datos a Google Sheets (preparado, no implementado)
+    // Lógica para enviar datos a Google Sheets
     fetch(
-      "https://sheetdb.io/api/v1/enc3piqmqybm2?sheet=respuestas_experimentos",
+      "https://sheetdb.io/api/v1/fk99p94fx65ni?sheet=respuestas_experimentos",
       {
         method: "POST",
         headers: {
