@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Lógica para enviar datos a Google Sheets
     fetch(
-      "https://sheetdb.io/api/v1/fk99p94fx65ni?sheet=respuestas_experimentos",
+      "https://sheetdb.io/api/v1/a7ghyjkme0m0x?sheet=respuestas_experimentos",
       {
         method: "POST",
         headers: {
